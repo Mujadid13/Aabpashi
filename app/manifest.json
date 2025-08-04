@@ -1,0 +1,37 @@
+{
+  "name": "AabPashi",
+  "short_name": "AabPashi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "AabPashi is a web application that provides farmers with remote sensing data to improve their farming practices.",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "434x434",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/wide.png",
+      "sizes": "2536x1344",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/mobile.png",
+      "sizes": "1081x2404",
+      "type": "image/png",
+      "form_factor": "mobile"
+    }
+  ]
+}

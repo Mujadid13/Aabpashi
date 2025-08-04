@@ -1,0 +1,20 @@
+[
+  {
+    "key": "canalWater"
+  },
+  {
+    "key": "extremeWeather"
+  },
+  {
+    "key": "waterStress"
+  },
+  {
+    "key": "aiAdvisory"
+  },
+  {
+    "key": "waterStewardship"
+  },
+  {
+    "key": "cropHealth"
+  }
+]

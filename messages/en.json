@@ -1,0 +1,710 @@
+{
+  "waterAcademy": {
+    "header": {
+      "title": "Water Academy",
+      "breadcrumb": "Home » Water Academy"
+    },
+    "about": {
+      "title": "Water Academy",
+      "heading": "Empowering Farmers with Knowledge",
+      "description": "The Water Academy by AabPashi (آبپاشی) is a dedicated learning hub designed to educate farmers, agronomists, irrigation experts, and industry professionals on sustainable water management, smart irrigation, and regenerative agriculture."
+    },
+    "mission": {
+      "title": "🌱 Our Mission",
+      "text": "To equip farmers and agricultural stakeholders with the skills, tools, and best practices needed to address water scarcity, climate resilience, and efficient irrigation."
+    },
+    "offers": {
+      "title": "Training & Learning",
+      "heading": "💧 What We Offer?",
+      "items": {
+        "smart": "✔ Smart Irrigation Training: AI, IoT sensors, and satellite data.",
+        "stewardship": "✔ Water Stewardship Programs: Community-led conservation.",
+        "regenerative": "✔ Regenerative Agriculture Workshops: Organic farming.",
+        "climate": "✔ Drought & Flood Preparedness: Climate-resilient farming techniques.",
+        "platform": "✔ Digital Learning Platform: Urdu & Punjabi tutorials.",
+        "community": "✔ Farmer-to-Farmer Learning: Connect with experts."
+      }
+    },
+    "eligibility": {
+      "title": "Eligibility & Impact",
+      "heading": "🚀 Who Can Benefit?",
+      "items": {
+        "1": "✅ Farmers looking to maximize water efficiency",
+        "2": "✅ Agronomists and irrigation experts",
+        "3": "✅ Government and NGOs working on water conservation",
+        "4": "✅ Agri-tech companies promoting smart water solutions"
+      }
+    },
+    "cta": {
+      "title": "🌍 Join Us in Transforming Water Management!",
+      "text": "At Water Academy by AabPashi (آبپاشی), we believe that knowledge is the key to water sustainability.",
+      "button": "Learn More"
+    }
+  },
+  "home": {
+    "title": "AabPashi by Farmovation",
+    "subtitle": {
+      "1": "Sustainable Irrigation Management",
+      "2": "A ClimaTech platform for farmers, businesses, policymakers, and society",
+      "3": "My Land, My Crop, My Prosperity"
+    },
+    "button": {
+      "intro": "AabPashi Introduction",
+      "tutorial": "How AabPashi Works",
+      "start": "Get Started with AabPashi"
+    },
+    "modal": {
+      "introTitle": "💧 Welcome to AabPashi – Your Smart Water Assistant",
+      "introBody": "AabPashi is designed to help farmers manage water supply efficiently and confidently. You no longer need to wait or guess when water will arrive. AabPashi gives you:\n\n✅ Timely water schedule alerts\n📊 Canal status and priority updates\n🗺️ An easy map to check canal information\n🔈 Audio guidance in your language\n🌐 Full support in English and Urdu\n\n🌾 Whether you grow wheat, sugarcane, cotton, or vegetables, AabPashi helps you save time, reduce risk, and increase your crop yield with smart water planning.\n\n🚀 Let’s begin.\nClick 'Get Started with AabPashi' to see your water schedule, or view tutorials to learn more."
+    }
+  },
+  "header": {
+    "nav": {
+      "home": "Home",
+      "technology": "Technology",
+      "projects": "Projects",
+      "impact": "Why & Our Impact",
+      "academy": "Water Academy",
+      "about": "About Us",
+      "contact": "Contact Us"
+    }
+  },
+  "userProfile": {
+    "view": "View Profile",
+    "update": "Update Profile",
+    "logout": "Logout",
+    "discover": "Discover Your Farm"
+  },
+  "screenSection": {
+    "heading": "Why Choose Aab Pashi?",
+    "benefits": [
+      "Smart Irrigation Advisory",
+      "Real-time Canal Water Updates",
+      "Extreme Weather Alerts",
+      "Satellite-Powered Monitoring",
+      "Increase Water Productivity"
+    ]
+  },
+  "voiceOfFarmers": {
+    "title": "Voice of Farmers"
+  },
+  "featuresSection": {
+    "heading": "Aab Pashi Features",
+    "features": {
+      "canalWater": {
+        "title": "Canal Water Release schedule",
+        "description": "Get real-time canal discharge updates and official rotation plans for your farm from the Punjab Irrigation Department."
+      },
+      "extremeWeather": {
+        "title": "Extreme Weather Alerts",
+        "description": "Receive early warnings for droughts, floods, storms, and extreme weather to protect your crops and plan irrigation."
+      },
+      "waterStress": {
+        "title": "Farm Water Stress Map",
+        "description": "Monitor drought stress, crop water status, and soil moisture using satellite data for better irrigation planning."
+      },
+      "aiAdvisory": {
+        "title": "AI-powered Irrigation Advisory Services",
+        "description": "Get AI-based recommendations on irrigation schedules, water-saving methods, and government support to optimize water use."
+      },
+      "waterStewardship": {
+        "title": "Water Stewardship Projects",
+        "description": "Join Aab Pashi’s program promoting smart irrigation, water efficiency, and sustainable farming with measurable impact."
+      },
+      "cropHealth": {
+        "title": "Crop Health Monitoring",
+        "description": "Track crop growth, water stress, and yield using AI and remote sensing to boost farm productivity and detect issues early."
+      }
+    }
+  },
+  "footer": {
+    "slogans": {
+      "slogan1": "Cultivating Innovation",
+      "slogan2": "Empowering Pakistani Farmers With Technology",
+      "slogan3": "Harvesting the Future",
+      "slogan4": "Integrating Technology into Pakistani Agriculture"
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "items": {
+        "Benefits": "Benefits",
+        "Our Partners": "Our Partners",
+        "Latest News": "Latest News"
+      }
+    },
+    "contact": {
+      "title": "Contact Info",
+      "labels": {
+        "Email": "Email",
+        "Phone": "Phone"
+      }
+    },
+    "rights": "All rights reserved."
+  },
+  "technology": {
+    "title": "Technology",
+    "breadcrumb": "Home » Technology",
+    "heading": "Farmers Centric Solution",
+    "keyFeaturesTitle": "🚀 Key Features",
+    "keyFeatures": [
+      "✅ Soil Health: Analyze soil nutrients and conditions to optimize crop growth.",
+      "✅ Water & Energy: Monitor irrigation systems and energy usage for sustainable farming.",
+      "✅ Crop Health: Detect crop diseases and nutrient deficiencies early.",
+      "✅ Weather Forecast: Provide real-time weather predictions for better planning.",
+      "✅ Climate Change Impact: Assess climate trends and their impact on farming.",
+      "✅ Farmers Complaints: Address farmers' issues with efficient complaint management."
+    ],
+    "featuresLeft": ["Soil Health", "Water & Energy", "Crop Health"],
+    "featuresRight": [
+      "Weather Forecast",
+      "Climate Change Impact",
+      "Farmers Complaints"
+    ],
+    "techStackTitle": "Technology Stack"
+  },
+  "projects": {
+    "title": "Projects",
+    "breadcrumb": "Home » Projects",
+    "overviewHeading": "Program Overview",
+    "overviewText": "Aab Pashi’s Water Stewardship Program enhances water efficiency in agriculture through technology-driven irrigation strategies and sustainable farming practices. By optimizing water use, reducing waste, and improving crop yields, the program helps farmers conserve water while maintaining productivity.",
+    "focusHeading": "Key Focus Areas",
+    "sustainabilityStatement": "By integrating technology, data analytics, and economic incentives, Aab Pashi’s Water Stewardship Program empowers farmers to maximize productivity while conserving water resources. The program aligns with global best practices in agricultural water management, ensuring long-term sustainability.",
+    "focusAreas": [
+      {
+        "title": "Baseline Water Assessment",
+        "description": "Evaluate farm-level water usage, identify inefficiencies, and provide tailored recommendations."
+      },
+      {
+        "title": "Smart Irrigation Scheduling",
+        "description": "Use AI-driven models and real-time data to optimize irrigation timing and volume."
+      },
+      {
+        "title": "Water Footprint Certification",
+        "description": "Measure and certify farm-level water consumption efficiency, helping farmers reduce their footprint."
+      },
+      {
+        "title": "Water Credit Programs",
+        "description": "Develop systems where agribusinesses offset water use while farmers receive financial incentives."
+      },
+      {
+        "title": "Sustainable Agricultural Practices",
+        "description": "Promote techniques such as drip irrigation and regenerative farming to enhance soil water retention."
+      },
+      {
+        "title": "Climate-Resilient Water Strategies",
+        "description": "Implement drought-resistant irrigation techniques and predictive analytics for water risk management."
+      },
+      {
+        "title": "Farmer Training & Digital Advisory Services",
+        "description": "Provide AI-powered advisory services and training programs on water-efficient farming techniques."
+      },
+      {
+        "title": "Validation of Impact",
+        "description": "Quantify and validate the volumetric water savings achieved through interventions."
+      },
+      {
+        "title": "Economic Recognition",
+        "description": "Enable farmers to receive payments for ecosystem services and sustainable water management practices."
+      }
+    ]
+  },
+  "ourImpact": {
+    "title": "Our Impact",
+    "breadcrumb": "Home » Our Impact",
+    "impactHeading": "Water Challenges & Global Impact",
+    "benefitsHeading": "AabPashi Results",
+    "benefitsTitle": "🚀 Benefits",
+    "impactData": [
+      {
+        "highlight": "70%",
+        "text": "Agriculture uses around 70% of all water withdrawals."
+      },
+      {
+        "highlight": "50%",
+        "text": "In 2022, over 50% of global catchment areas and reservoirs displayed deviations from normal conditions."
+      },
+      {
+        "highlight": "50%",
+        "text": "Around half of the world’s population experiences severe water scarcity for at least some part of the year."
+      },
+      {
+        "highlight": "700,000+",
+        "text": "Droughts between 1970 and 2019 led to over 700,000 drought-related deaths and over 260 billion USD of economic losses."
+      },
+      {
+        "highlight": "74%",
+        "text": "Between 2001 and 2018, around 74% of all natural disasters were water-related."
+      },
+      {
+        "highlight": "1.8 billion",
+        "text": "Around 1.8 billion people face significant flood risk worldwide."
+      }
+    ],
+    "benefitsData": [
+      {
+        "title": "✅ Water Productivity",
+        "value": "+40%"
+      },
+      {
+        "title": "✅ Lower Fertilizer Dosage",
+        "value": "-20%"
+      },
+      {
+        "title": "✅ Efficient Fertigation",
+        "value": "+10%"
+      },
+      {
+        "title": "✅ Lower Costs on Water & Energy",
+        "value": "-30%"
+      }
+    ]
+  },
+  "benefits": {
+    "title": "Benefits",
+    "breadcrumb": "Home » Benefits",
+    "heading": "AabPashi Results",
+    "sectionTitle": "🚀 Benefits",
+    "items": [
+      {
+        "title": "✅ Water Productivity",
+        "value": "+40%"
+      },
+      {
+        "title": "✅ Lower Fertilizer Dosage",
+        "value": "-20%"
+      },
+      {
+        "title": "✅ Efficient Fertigation",
+        "value": "+10%"
+      },
+      {
+        "title": "✅ Lower Costs on Water & Energy",
+        "value": "-30%"
+      }
+    ]
+  },
+  "about": {
+    "title": "About us",
+    "breadcrumb": "Home » About us",
+    "heading": "Aab Pashi",
+    "sectionTitle": "About Us",
+    "description": "AabPashi (آبپاشی) unites farmers, agronomists, irrigation experts, technologists, and market leaders to tackle water scarcity, climate change, and food insecurity...",
+    "teamTitle": "Our Team",
+    "teamSubtitle": "Meet the People Behind AabPashi",
+    "leadership": "Our Visionaries - Leadership Team",
+    "members": "Our Change Makers"
+  },
+  "team": {
+    "leadership": [
+      {
+        "name": "Zia Tahseen",
+        "title": "Chief Executive Officer (CEO)",
+        "description": "Leads the overall strategic direction, partnerships and vision of AabPashi."
+      },
+      {
+        "name": "Giorgios Kalaitzis",
+        "title": "Chief Growth Officer (CGO)",
+        "description": "Drives growth strategies and market expansion initiatives."
+      },
+      {
+        "name": "Usman Nazir",
+        "title": "Chief AI Officer (CAIO)",
+        "description": "Oversees the development and integration of AI technologies in agricultural solutions."
+      },
+      {
+        "name": "Ameer Hamza",
+        "title": "Chief Operating Officer (COO)",
+        "description": "Leads AabPashi’s operations, product deployment, and regional execution."
+      },
+      {
+        "name": "Aqeel Arshad",
+        "title": "Chief Technology Officer (CTO)",
+        "description": "Manages the technological infrastructure and innovation."
+      },
+      {
+        "name": "Ammar Feroz",
+        "title": "Chief Agronomy Officer (CAO)",
+        "description": "Oversees agronomic strategy and ensures scientific excellence in crop management and sustainable agriculture practices."
+      }
+    ],
+    "members": [
+      {
+        "name": "Hafiz Muhammad Abubakar",
+        "title": "Lead Platform Architect",
+        "description": "Designs and oversees the architecture of AabPashi’s digital infrastructure, ensuring scalability and performance."
+      },
+      {
+        "name": "Mujadid Sana",
+        "title": "Full Stack Developer",
+        "description": "Builds and maintains both front-end and back-end systems powering the AabPashi platform."
+      },
+      {
+        "name": "Adullah Riaz",
+        "title": "Farmer Engagement & Technology Liaison",
+        "description": "Bridges the gap between field realities and tech solutions by connecting with farmers and translating their needs into features."
+      },
+      {
+        "name": "Zoya Arshad",
+        "title": "Communication & Culture Lead",
+        "description": "Shapes internal and external communications while fostering a collaborative, mission-driven culture."
+      },
+      {
+        "name": "Raahim Arbaz",
+        "title": "Conversational AI Engineer",
+        "description": "Develops multilingual intelligent chat-based systems to deliver real-time irrigation support and advice to farmers."
+      },
+      {
+        "name": "Husnain Ahmed",
+        "title": "Cyber Security & Digital Infrastructures Lead",
+        "description": "Ensures secure, reliable systems by managing cybersecurity, data protection, and governance policies."
+      },
+      {
+        "name": "Addul Moeed Khawaja",
+        "title": "Mobile Solutions Engineer",
+        "description": "Develops and optimizes mobile applications that connect farmers to AabPashi’s smart irrigation services."
+      },
+      {
+        "name": "Muhammad Abubakar",
+        "title": "Mobile Solutions Engineer",
+        "description": "Builds user-friendly mobile tools that enable farmers to access irrigation insights and platform features on the go."
+      }
+    ]
+  },
+  "partners": {
+    "title": "Our Partners",
+    "breadcrumb": "Home » Our Partners"
+  },
+  "news": {
+    "title": "Latest News",
+    "breadcrumb": "Home » Latest News"
+  },
+  "tutorial": {
+    "title": "How AabPashi Works",
+    "breadcrumb": "Home » How AabPashi Works",
+    "sectionHeading": "📹 How to Use AabPashi",
+    "videos": [
+      { "title": "How to add Your Farm" },
+      { "title": "How to Login" },
+      { "title": "How to Register Complaints" },
+      { "title": "How to Make your Account" },
+      { "title": "Water Release by Field" },
+      { "title": "Water Release by Search" }
+    ]
+  },
+  "login": {
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "Enter your phone number (no 0 at start)",
+    "phoneError": "Enter a valid 10-digit phone number e.g, (3344236298)",
+    "loginButton": "Login",
+    "loggingIn": "Logging in...",
+    "otpTitle": "Validate OTP (One Time Passcode)",
+    "otpMessage": "An OTP has been sent to +92{phone}. Please enter it below.",
+    "otpPlaceholder": "Enter OTP",
+    "otpError": "Enter a valid 4-digit OTP",
+    "verifying": "Verifying...",
+    "validateOtp": "Validate OTP",
+    "resendOtp": "Resend OTP",
+    "resending": "Resending OTP...",
+    "cancel": "Cancel",
+    "simNetwork": "SIM Network",
+    "simNetworkPlaceholder": "Select Your SIM Network",
+    "simNetworkError": "Please select your SIM network"
+  },
+  "register": {
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "fullNameError": "Write full name e.g, (Ali Ahmed)",
+
+    "phone": "Phone Number",
+    "phonePlaceholder": "Enter your phone number (no 0 at start)",
+    "phoneError": "Enter a valid 10-digit phone number e.g, (3344236298)",
+
+    "simNetwork": "SIM Network",
+    "simNetworkPlaceholder": "Select Your SIM Network",
+    "simNetworkError": "Please select your SIM network",
+
+    "country": "Country",
+    "countryPlaceholder": "Select Country First",
+    "cityPlaceholder": "Select Your City",
+    "countryError": "Please select your country",
+
+    "city": "City",
+    "cityError": "Please select your city",
+
+    "division": "Irrigation Division",
+    "divisionPlaceholder": "Select Your Irrigation Division",
+    "divisionError": "Please select your irrigation division",
+
+    "farmSize": "Farm Size",
+    "farmSizePlaceholder": "Select Your Farm Size",
+    "farmSizeError": "Please select your farm size",
+
+    "role": "Role",
+    "rolePlaceholder": "Select Your Role",
+    "roleError": "Please select your role",
+
+    "register": "Register",
+    "registering": "Registering",
+    "otpTitle": "Validate OTP (One Time Passcode)",
+    "otpMessage": "An OTP (One Time Passcode) has been sent to",
+    "otpInstruction": "Please enter the OTP below to verify your phone.",
+    "otpPlaceholder": "Enter OTP",
+    "otpError": "Enter a valid 4-digit OTP",
+    "verifyOtp": "Validate OTP",
+    "verifying": "Verifying",
+    "resendOtp": "Resend OTP",
+    "resendingOtp": "Resending OTP",
+    "cancel": "Cancel"
+  },
+  "authPopup": {
+    "title": "🌿 Welcome, Farmer!",
+    "description": "Join us in revolutionizing smart farming. Log in or sign up to monitor your crops with cutting-edge insights.",
+    "login": "Log In",
+    "register": "Register"
+  },
+  "authTabs": {
+    "login": "Login",
+    "register": "Register"
+  },
+  "audioCue": {
+    "label": "Audio Cue",
+    "on": "ON",
+    "off": "OFF"
+  },
+  "fieldPopup": {
+    "loading": "Loading fields...",
+    "selectField": "🌾 Select Your Field",
+    "noFields": "No fields added yet.",
+    "fieldName": "Field Name",
+    "cropTypes": "🌱 Crop Types",
+    "soilType": "🌍 Soil Type",
+    "close": "Close",
+    "confirmHeader": "⚠️ Confirm Deletion",
+    "confirmMessage": "Are you sure you want to delete",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "fieldsForm": {
+    "formTitle": "Field Information",
+    "fieldName": "Field Name",
+    "fieldNamePlaceholder": "Enter field name",
+    "cropTypes": "Crop Types",
+    "selectCrops": "Select your crops",
+    "soilType": "Soil Type",
+    "selectSoil": "Select soil type",
+    "fetching": "Fetching Fields...",
+    "submit": "Submit"
+  },
+  "sidebar": {
+    "maintitle": "AabPashi",
+    "currentSeason": "Current Season",
+    "irrigationAlert": "Irrigation alert",
+    "weatherUpdate": "Weather forecast update",
+    "addFarmLocation": "Add Your Farm Location",
+    "selectedField": "Selected Field",
+    "selectYourField": "Select Your Field",
+    "findMyLocation": "Find My Location",
+    "featuresTitle": "AabPashi Features",
+    "selectFieldWarning": "Select a field first",
+    "back": "Back",
+    "placeholderMessage": "Click Water Release Schedule Button to check the Water Availability to your Farms !!"
+    
+  },
+  "waterStressPopup": {
+    "watertitle": "Select Your Field",
+    "fieldName": "Field Name",
+    "fieldArea": "📍 Field Area",
+    "points": "{count} points",
+    "noPolygonMessage": "❌ Please draw your field area to continue",
+    "addFieldButton": "Add Field Area"
+  },
+  "weatherPopup": {
+    "weathertitle": "🌦️ 5-Day Weather Advisory",
+    "rain": "🌧 Rain: {value} mm",
+    "tempMax": "🌡 Max: {value}°C",
+    "tempMin": "🌡 Min: {value}°C",
+    "humidity": "💧 Humidity: {min}%-{max}%",
+    "adviceRain": "☔ Rain Expected - Lower irrigation needed",
+    "adviceHot": "🔥 Very Hot - Monitor Crops",
+    "adviceHumidity": "💧 High Humidity - Monitor Carefully",
+    "adviceNormal": "🌤 No Rain - Irrigate Field",
+    "close": "Close"
+  },
+  "chatbot": {
+    "title": "Water Release Schedule",
+    "close": "Close",
+    "defaultMessage": "Click Water Release Schedule Button to check the Water Availability to your Farms !!"
+  },
+  "searchPopup": {
+    "title": "Select Search Method",
+    "canal": "Search by Canal Name",
+    "field": "Search by Field",
+    "fieldWarning": "⚠ Select a field first",
+    "submit": "Submit",
+    "fetching": "Fetching nearest canals..."
+  },
+  "complaints": {
+    "title": "Ways to Register a Complaint",
+    "visitWebsite": "Visit {name}",
+    "names": {
+      "secretaryIrrigation": "Secretary Irrigation Complaint",
+      "cmPunjab": "CM Punjab Complaints Cell"
+    }
+  },
+  "canalSearch": {
+    "title": "Search Canal",
+    "searchPlaceholder": "Search for a canal...",
+    "loading": "Loading canals...",
+    "error": "Failed to fetch canal data.",
+    "noData": "No canal data available.",
+    "noMatch": "No matching canals found.",
+    "selectFirst": "⚠ Select a canal first",
+    "processing": "Processing...",
+    "submit": "Submit",
+    "back": "Back",
+    "translating": "Translating..."
+  },
+  "waterRelease": {
+    "back": "Back",
+    "title": "Select Your Canal",
+    "noCanals": "No canals found.",
+    "selectFirst": "⚠ Select a canal first",
+    "fetching": "Fetching Water Schedule...",
+    "submit": "Submit"
+  },
+  "accuracy": {
+    "label": "Location Accuracy",
+    "meters": "meters",
+    "good": "✅ Great accuracy! You can proceed.",
+    "medium": "⚠️ Acceptable accuracy, but try to improve it.",
+    "bad": "❌ Poor accuracy! Move to an open area for better results."
+  },
+  "charts": {
+    "title": "Water Stress Data",
+    "label": "Water Stress Index (WS)",
+    "lineTitle": "Line Chart: Water Stress Over Time",
+    "lineDescription": "This chart shows the Water Stress (WS) over a period of time.",
+    "barTitle": "Bar Chart: Water Stress Over Time",
+    "barDescription": "This bar chart also displays the Water Stress (WS) for each date.",
+    "open": "Show Charts",
+    "close": "Close"
+  },
+  "locationError": {
+    "error": "Error",
+    "tryAgain": "Try Again"
+  },
+  "languageToggle": {
+    "label": "🌐 Select Language",
+    "english": "English",
+    "urdu": "Urdu"
+  },
+  "map": {
+    "loadingFeatureData": "⏳ Loading Feature Data...",
+    "loadingCanalData": "⏳ Loading Canal Data...",
+    "youAreHere": "You are here 📍",
+    "checkAccuracy": "🔄 Check location accuracy from the status box above",
+    "recenter": "🔄 Recenter Location",
+    "errorPrefix": "Error:",
+    "legendScale": "{feature} Scale",
+    "legends": {
+      "Water Stress": {
+        "label": "Water Stress",
+        "High Stress": "High Stress",
+        "Moderate Stress": "Moderate Stress",
+        "Low Stress": "Low Stress",
+        "Slight Stress": "Slight Stress",
+        "No Stress": "No Stress"
+      },
+      "Soil Moisture Index": {
+        "label": "Soil Moisture Index",
+        "Very Dry": "Very Dry",
+        "Dry": "Dry",
+        "Optimal Moisture": "Optimal Moisture",
+        "Wet": "Wet",
+        "Very Wet": "Very Wet"
+      }
+    }
+  },
+  "messages": {
+    "notificationTitle": "CANAL WATER AVAILABILITY NOTIFICATION",
+    "priorityLevel": "Your canal, {canal}, has priority level [{priority}].",
+    "currentSchedule": "CURRENT WATER SCHEDULE:",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "nextSchedule": "The next water schedule will be available after {date}.",
+    "closedHeader": "Your selected canal: {canal}",
+    "closedWarning": "Canal Closed For {season} Season.",
+    "closedDetails": "{canal} is currently closed for {season} Season.",
+    "expectedOpeningDate": "Your canal water will be available when next rotational plan schedule will be live by Irrigation Authority.",
+    "checkBackLater": "Please check back closer to the opening date for schedule updates.",
+    "closed": "You are not authorized to view this canal's schedule as it belongs to a different division.",
+    "noCanalsFound": "No canals found."
+  },
+  "bazaar": {
+    "title": "Irrigation Market",
+    "products": {
+      "dripKit": {
+        "name": "Drip Irrigation Kit",
+        "price": "PKR 4,500"
+      },
+      "solarPump": {
+        "name": "Water Pump (Solar)",
+        "price": "PKR 12,000"
+      },
+      "pipes": {
+        "name": "PVC Pipes Bundle",
+        "price": "PKR 1,850"
+      },
+      "nozzle": {
+        "name": "Nozzle Sprayer Set",
+        "price": "PKR 750"
+      },
+      "timer": {
+        "name": "Irrigation Timer Controller",
+        "price": "PKR 3,200"
+      },
+      "sprinklers": {
+        "name": "Sprinkler Head Pack",
+        "price": "PKR 1,200"
+      },
+      "sensor": {
+        "name": "Soil Moisture Sensor",
+        "price": "PKR 2,800"
+      },
+      "hose": {
+        "name": "Garden Hose Reel",
+        "price": "PKR 5,000"
+      }
+    }
+  },
+  "errors": {
+    "phoneRequired": "Phone number is required.",
+    "invalidFormat": "Invalid phone number format. Use +92XXXXXXXXXX.",
+    "notRegistered": "This phone number is not registered. Please sign up first.",
+    "userExists": "This phone number is already registered.",
+    "registerFail": "Registration failed. Please try again.",
+
+    "otpExpired": "OTP has expired. Please try again.",
+    "invalidOtp": "Invalid OTP. Please enter the correct code.",
+    "otpAlreadySent": "OTP already sent. Please wait before requesting again.",
+    "sendFailed": "Failed to send OTP. Please try again.",
+    "serverError": "A server error occurred during OTP verification."
+  },
+  "contact-form": {
+    "title": "Contact Us",
+    "breadcrumb": "Home » Contact",
+    "contactHeading": "We’d Love to Hear From You",
+    "contactHeading2": "Get in Touch",
+    "description": "If you have any questions, suggestions or feedback, reach out to us!",
+    "email": "Email",
+    "phone": "Phone Number",
+    "address": "Address",
+    "name": "Your Name",
+    "message": "Your Message",
+    "submit": "Send Message",
+    "introText": "We're here to help! Whether you have questions about our platform, feedback to improve the experience, or want to collaborate—feel free to reach out to us using the form below or through the provided contact details.",
+    "successTitle": "Message Sent!",
+    "successMessage": "Thank you for contacting us. We'll get back to you shortly.",
+    "close": "Close"
+  }
+}

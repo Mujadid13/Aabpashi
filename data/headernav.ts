@@ -1,5 +1,6 @@
 const navItems = [
   { key: "home", path: "/" },
+  { key: "scaleup", path: "/scale-up" },
   { key: "technology", path: "/technology" },
   { key: "projects", path: "/projectss" },
   { key: "impact", path: "/our-impact" },

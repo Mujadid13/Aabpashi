@@ -1,0 +1,177 @@
+version: "3.8"
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: ${MONGO_CONTAINER_NAME}
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+    ports:
+      - "${MONGO_PORT}:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+      - ./docker/mongo/init:/docker-entrypoint-initdb.d
+    networks:
+      - aabpashi-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: ${HEALTH_CHECK_INTERVAL}s
+      timeout: ${HEALTH_CHECK_TIMEOUT}s
+      retries: ${HEALTH_CHECK_RETRIES}
+    deploy:
+      resources:
+        limits:
+          memory: ${MONGO_MEMORY_LIMIT}
+          cpus: ${MONGO_CPU_LIMIT}
+
+  # Redis Cache
+  redis:
+    image: redis:7.2-alpine
+    container_name: ${REDIS_CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - aabpashi-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: ${HEALTH_CHECK_INTERVAL}s
+      timeout: ${HEALTH_CHECK_TIMEOUT}s
+      retries: ${HEALTH_CHECK_RETRIES}
+    deploy:
+      resources:
+        limits:
+          memory: ${REDIS_MEMORY_LIMIT}
+          cpus: ${REDIS_CPU_LIMIT}
+
+  # AabPashi Web Application
+  aabpashi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: ${APP_CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:3000"
+    environment:
+      # Node.js
+      NODE_ENV: development
+
+      # MongoDB
+      MONGO_URI: ${MONGO_URI}
+
+      # Redis
+      REDIS_URL: ${REDIS_URL}
+
+      # API Keys
+      VEEVO_API_KEY: ${VEEVO_API_KEY}
+      GOOGLE_CLOUD_API_KEY: ${GOOGLE_CLOUD_API_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+
+      # External API URLs
+      NEXT_PUBLIC_PYTHON_API_URL: ${NEXT_PUBLIC_PYTHON_API_URL}
+      NEXT_PUBLIC_PYTHON_API_URL1: ${NEXT_PUBLIC_PYTHON_API_URL1}
+      NEXT_PUBLIC_GEE_API_URL: ${NEXT_PUBLIC_GEE_API_URL}
+
+      # Multi-Platform Sync Configuration
+      FARMOVATION_API_URL: ${FARMOVATION_API_URL}
+      FARMOVATION_API_KEY: ${FARMOVATION_API_KEY}
+      FARMOVATION_MARKETPLACE_API_URL: ${FARMOVATION_MARKETPLACE_API_URL}
+      FARMOVATION_MARKETPLACE_API_KEY: ${FARMOVATION_MARKETPLACE_API_KEY}
+
+      # Next.js
+      NEXT_TELEMETRY_DISABLED: 1
+    volumes:
+      # Source code for hot reload (bind mount the entire project)
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+
+      # Persistent data
+      - aabpashi_data:/app/data
+      - aabpashi_logs:/app/logs
+    networks:
+      - aabpashi-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "${APP_HEALTH_CHECK_URL}"]
+      interval: ${HEALTH_CHECK_INTERVAL}s
+      timeout: ${HEALTH_CHECK_TIMEOUT}s
+      retries: ${HEALTH_CHECK_RETRIES}
+    deploy:
+      resources:
+        limits:
+          memory: ${APP_MEMORY_LIMIT}
+          cpus: ${APP_CPU_LIMIT}
+    command: npm run dev
+
+  # MongoDB Express (Optional - for database management)
+  mongo-express:
+    image: mongo-express:1.0.0
+    container_name: ${MONGO_EXPRESS_CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - "${MONGO_EXPRESS_PORT}:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: ${MONGO_EXPRESS_URL}
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USER}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
+    volumes:
+      - mongo_express_data:/data
+    networks:
+      - aabpashi-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  # Redis Commander (Optional - for Redis management)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: ${REDIS_COMMANDER_CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - "${REDIS_COMMANDER_PORT}:8081"
+    environment:
+      REDIS_HOSTS: ${REDIS_COMMANDER_HOSTS}
+    networks:
+      - aabpashi-network
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  # Database persistence
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
+  redis_data:
+    driver: local
+
+  # Application data persistence
+  aabpashi_data:
+    driver: local
+  aabpashi_logs:
+    driver: local
+
+  # Management tools data
+  mongo_express_data:
+    driver: local
+
+networks:
+  aabpashi-network:
+    driver: bridge

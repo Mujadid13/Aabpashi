@@ -61,6 +61,7 @@
   "header": {
     "nav": {
       "home": "Home",
+      "scaleup": "Scale Up",
       "technology": "Technology",
       "projects": "Projects",
       "impact": "Why & Our Impact",
@@ -70,7 +71,7 @@
     }
   },
   "userProfile": {
-    "view": "View Profile",
+   "view": "View Profile",
     "update": "Update Profile",
     "logout": "Logout",
     "discover": "Discover Your Farm"
@@ -298,13 +299,13 @@
     "leadership": [
       {
         "name": "Zia Tahseen",
-        "title": "Chief Executive Officer (CEO)",
-        "description": "Leads the overall strategic direction, partnerships and vision of AabPashi."
+        "title": "Chief Strategy and Partnerships Officer (CSP)",
+        "description": "Guides AabPashi’s vision through strategy and key partnerships."
       },
       {
-        "name": "Giorgios Kalaitzis",
-        "title": "Chief Growth Officer (CGO)",
-        "description": "Drives growth strategies and market expansion initiatives."
+        "name": "Dr Sara Khalid",
+        "title": "Scientific Advisor",
+        "description": "Provides scientific expertise and guidance to ensure the effectiveness of AabPashi's solutions."
       },
       {
         "name": "Usman Nazir",
@@ -312,14 +313,19 @@
         "description": "Oversees the development and integration of AI technologies in agricultural solutions."
       },
       {
-        "name": "Ameer Hamza",
-        "title": "Chief Operating Officer (COO)",
-        "description": "Leads AabPashi’s operations, product deployment, and regional execution."
-      },
-      {
         "name": "Aqeel Arshad",
         "title": "Chief Technology Officer (CTO)",
         "description": "Manages the technological infrastructure and innovation."
+      },
+      {
+        "name": "Giorgios Kalaitzis",
+        "title": "Chief Growth Officer (CGO)",
+        "description": "Drives growth strategies and market expansion initiatives."
+      },
+      {
+        "name": "Ameer Hamza",
+        "title": "Chief Operating Officer (COO)",
+        "description": "Leads AabPashi’s operations, product deployment, and regional execution."
       },
       {
         "name": "Ammar Feroz",
@@ -339,7 +345,7 @@
         "description": "Builds and maintains both front-end and back-end systems powering the AabPashi platform."
       },
       {
-        "name": "Adullah Riaz",
+        "name": "Abdullah Riaz",
         "title": "Farmer Engagement & Technology Liaison",
         "description": "Bridges the gap between field realities and tech solutions by connecting with farmers and translating their needs into features."
       },
@@ -359,14 +365,9 @@
         "description": "Ensures secure, reliable systems by managing cybersecurity, data protection, and governance policies."
       },
       {
-        "name": "Addul Moeed Khawaja",
+        "name": "Mohsin Sabir",
         "title": "Mobile Solutions Engineer",
         "description": "Develops and optimizes mobile applications that connect farmers to AabPashi’s smart irrigation services."
-      },
-      {
-        "name": "Muhammad Abubakar",
-        "title": "Mobile Solutions Engineer",
-        "description": "Builds user-friendly mobile tools that enable farmers to access irrigation insights and platform features on the go."
       }
     ]
   },
@@ -706,5 +707,9 @@
     "successTitle": "Message Sent!",
     "successMessage": "Thank you for contacting us. We'll get back to you shortly.",
     "close": "Close"
+  },
+  "scaleup": {
+
   }
+
 }

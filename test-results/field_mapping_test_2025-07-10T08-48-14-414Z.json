@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-07-10T08:48:14.414Z",
+  "testName": "Field Mapping System Test",
+  "inputData": {
+    "name": "John Doe",
+    "phone": "+923001234567",
+    "city": "Lahore",
+    "division": "Kasur",
+    "role": "Farmer",
+    "farmsize": "5-10 acres",
+    "country": "Pakistan",
+    "receiverNetwork": "Jazz",
+    "_id": "user123",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  "sourcePlatform": "aabpashi",
+  "results": [
+    {
+      "mapper": "farmovation",
+      "status": "PASSED",
+      "data": {
+        "userData": {
+          "email": "923001234567@aabpashi.com",
+          "phoneNumber": "+923001234567",
+          "firstName": "John",
+          "lastName": "Doe",
+          "country": "Pakistan",
+          "city": "Lahore",
+          "address": "Lahore, Kasur",
+          "userType": "farmer",
+          "preferredLanguage": "en",
+          "sourcePlatform": "aabpashi",
+          "originalUserId": "user123",
+          "metadata": {
+            "division": "Kasur",
+            "farmsize": "5-10 acres",
+            "receiverNetwork": "Jazz",
+            "createdAt": "2024-01-01T00:00:00.000Z"
+          }
+        },
+        "force": false
+      }
+    },
+    {
+      "mapper": "water_management",
+      "status": "PASSED",
+      "data": {
+        "user": {
+          "id": "user123",
+          "fullName": "John Doe",
+          "contact": {
+            "phone": "+923001234567",
+            "email": "923001234567@aabpashi.com"
+          },
+          "location": {
+            "city": "Lahore",
+            "region": "Kasur",
+            "country": "Pakistan"
+          },
+          "profile": {
+            "type": "Farmer",
+            "farmSize": "5-10 acres",
+            "network": "Jazz"
+          },
+          "source": {
+            "platform": "aabpashi",
+            "originalId": "user123",
+            "importedAt": "2025-07-10T08:48:14.412Z"
+          }
+        }
+      }
+    },
+    {
+      "mapper": "irrigation_analytics",
+      "status": "PASSED",
+      "data": {
+        "farmer": {
+          "farmerId": "user123",
+          "personalInfo": {
+            "name": "John Doe",
+            "phone": "+923001234567",
+            "email": "923001234567@aabpashi.com"
+          },
+          "location": {
+            "city": "Lahore",
+            "district": "Kasur",
+            "country": "Pakistan"
+          },
+          "farmingDetails": {
+            "farmerType": "Farmer",
+            "landSize": "5-10 acres",
+            "mobileOperator": "Jazz"
+          },
+          "integration": {
+            "sourceSystem": "aabpashi",
+            "externalId": "user123",
+            "syncTimestamp": "2025-07-10T08:48:14.413Z"
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "errors": 0,
+    "allPassed": true
+  }
+}

@@ -3,8 +3,6 @@ import { Inter, Roboto_Mono } from "next/font/google";
 import dynamic from "next/dynamic";
 import { ManualLoaderProvider } from "@/context/ManualLoaderContext";
 import { AudioCueProvider } from "@/context/AudioCueContext";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Inter({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Roboto_Mono({
@@ -37,9 +35,6 @@ export default function RootLayout({
           <LoaderManager />
           <AudioCueProvider>{children}</AudioCueProvider>
         </ManualLoaderProvider>
-
-        <Analytics/>
-        <SpeedInsights />
       </body>
     </html>
   );

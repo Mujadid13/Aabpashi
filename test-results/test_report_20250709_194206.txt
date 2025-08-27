@@ -1,0 +1,22 @@
+Test Results - Wed Jul  9 19:42:06 CEST 2025
+========================================
+
+Environment file missing: SKIPPED
+
+Basic endpoint test: PASSED
+
+Running API Key System...
+  Status: FAILED
+  Log: /Users/nicolasgay/Documents/GitHub/AaabPashi-web/test-results/API Key System_20250709_194206.log
+
+Running Authentication Flow...
+  Status: PASSED
+
+Test Summary
+============
+Total Tests: 4
+Passed: 2
+Failed: 1
+Skipped: 1
+
+Success Rate: 50%

@@ -1,0 +1,34 @@
+/* Force Swagger UI to use light theme colors and fix contrast */
+.swagger-ui,
+.swagger-ui .topbar,
+.swagger-ui .info,
+.swagger-ui .scheme-container,
+.swagger-ui .opblock,
+.swagger-ui .opblock-tag-section,
+.swagger-ui .opblock-summary,
+.swagger-ui .opblock-description-wrapper,
+.swagger-ui .responses-inner,
+.swagger-ui .response-col_status,
+.swagger-ui .response-col_links,
+.swagger-ui .response-col_description,
+.swagger-ui .response-col_schema,
+.swagger-ui .response-col_headers,
+.swagger-ui .response-col_response,
+.swagger-ui .response-col_example,
+.swagger-ui .response-col_response .response-col_description {
+  background: #fff !important;
+  color: #222 !important;
+}
+
+.swagger-ui .opblock .opblock-summary-method {
+  color: #fff !important;
+}
+
+.swagger-ui .markdown a {
+  color: #0066cc !important;
+}
+
+.swagger-ui .opblock-tag {
+  background: #fafafa !important;
+  color: #333 !important;
+} 

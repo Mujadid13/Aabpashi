@@ -1,0 +1,65 @@
+{
+  "platforms": [
+    {
+      "name": "sam_user_server",
+      "displayName": "Sam User Server",
+      "enabled": true,
+      "baseUrlEnvVar": "FARMOVATION_API_URL",
+      "apiKeyEnvVar": "FARMOVATION_API_KEY",
+      "defaultBaseUrl": "http://217.154.66.145:8010",
+      "timeout": 30000,
+      "endpoints": {
+        "create": "/api/v1/sync/create-user",
+        "update": "/api/v1/sync/update-user",
+        "delete": "/api/v1/sync/delete-user",
+        "test": "/api/v1/sync/health"
+      },
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Source": "aabpashi",
+        "X-Platform": "Sam User Server"
+      },
+      "retryPolicy": {
+        "maxAttempts": 3,
+        "backoffMultiplier": 2,
+        "initialDelayMs": 1000
+      },
+      "fieldMapper": "farmovation",
+      "description": "Primary user management platform with comprehensive user data"
+    },
+    {
+      "name": "farmovation_marketplace",
+      "displayName": "Farmovation Marketplace Platform",
+      "enabled": false,
+      "baseUrlEnvVar": "FARMOVATION_MARKETPLACE_API_URL",
+      "apiKeyEnvVar": "FARMOVATION_MARKETPLACE_API_KEY",
+      "defaultBaseUrl": "https://marketplace.farmovation.tech",
+      "timeout": 25000,
+      "endpoints": {
+        "create": "/api/sync/create-user",
+        "update": "/api/sync/update-user",
+        "delete": "/api/sync/delete-user",
+        "test": "/api/health"
+      },
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Source": "aabpashi",
+        "X-Platform": "marketplace"
+      },
+      "retryPolicy": {
+        "maxAttempts": 4,
+        "backoffMultiplier": 1.8,
+        "initialDelayMs": 1500
+      },
+      "fieldMapper": "farmovation_marketplace",
+      "description": "E-commerce marketplace for agricultural products and services"
+    }
+  ],
+  "global": {
+    "defaultTimeout": 30000,
+    "maxConcurrentSyncs": 5,
+    "retryIntervalMinutes": 5,
+    "enableLogging": true,
+    "logLevel": "info"
+  }
+}

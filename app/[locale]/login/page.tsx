@@ -19,7 +19,7 @@ export default function LoginPage() {
         {activeTab === "login" ? (
           <LoginForm {...{ loginData, isLoadingBoth, isLoadingOtp, setLoginDataAction: setLoginData, handleLoginAction: handleLogin, otpSent, setOtpAction: setOtp, handleVerifyOtpAndRegisterAction: handleRegister, otp, errorState, showOtpPopup, setShowOtpPopupAction: setShowOtpPopup, verifyOtp, verifyOtpAction: verifyOtp, sendOtp, sendOtpAction: sendOtp, isLoadingBoth1, otperrorState }} />
         ) : (
-          <RegisterForm {...{ registerData, isLoadingBoth ,isLoadingOtp, setRegisterDataAction: setRegisterData, setOtpAction: setOtp, otpSent, handleVerifyOtpAndRegisterAction: handleRegister, otp, handleRegisterAction: handleRegister, verifyOtpAction: verifyOtp, showOtpPopup, setShowOtpPopupAction: setShowOtpPopup, registererrorState, otperrorState, sendOtpAction: sendOtp, isLoadingBoth1, handleCountryChange, handleCityChange, selectedCountry, handleCountryChangeAction: handleCountryChange, handleCityChangeAction: handleCityChange }} />
+          <RegisterForm {...{ registerData, isLoadingBoth ,isLoadingOtp, setRegisterDataAction: setRegisterData, setOtpAction: setOtp, otpSent, handleVerifyOtpAndRegisterAction: handleRegister, otp, handleRegisterAction: handleRegister, verifyOtpAction: verifyOtp, showOtpPopup, setShowOtpPopupAction: setShowOtpPopup, registererrorState, otperrorState, sendOtpAction: sendOtp, isLoadingBoth1, handleCountryChangeAction: handleCountryChange, handleCityChangeAction: handleCityChange, selectedCountry  }} />
         )}
       </div>
     </div>

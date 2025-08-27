@@ -1,0 +1,35 @@
+[
+  {
+    "id": "d895c695beae8b62e2cfba3c120c1354",
+    "name": "Test API Key",
+    "key": "aabpashi_3e56d3caf71680e66977dcda9da3c05b19f2f65567297e9260851b62acb675fb",
+    "userId": null,
+    "permissions": [
+      "admin"
+    ],
+    "isActive": true,
+    "createdAt": "2025-07-11T10:03:30.735Z"
+  },
+  {
+    "id": "a5c2c721841d9f15fdf51b6de2854d35",
+    "name": "AabPashi Production API Key",
+    "key": "aabpashi_78c25841ff026224835c5482ec07fb910e4f00efb61950e2129ba0c3d7b1a9e5",
+    "userId": null,
+    "permissions": [
+      "admin"
+    ],
+    "isActive": true,
+    "createdAt": "2025-07-11T10:23:21.503Z"
+  },
+  {
+    "id": "9f49a6851e095ad381960cd4e9af55b4",
+    "name": "aabpashi-web",
+    "key": "aabpashi_21d2d394990fb19154bec4b4e7508036d99354517c86762d57c81ac6026d5617",
+    "userId": null,
+    "permissions": [
+      "read"
+    ],
+    "isActive": true,
+    "createdAt": "2025-07-16T07:43:35.976Z"
+  }
+]

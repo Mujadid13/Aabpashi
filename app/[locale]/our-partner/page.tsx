@@ -47,7 +47,6 @@ export default function OurPartners() {
           </div>
         </div>
 
-        {/* You can insert logos, partners grid, or call-to-actions here */}
       </div>
 
       <Footer />

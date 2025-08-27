@@ -1,0 +1,97 @@
+{
+  "timestamp": "2025-07-10T09:28:44.242Z",
+  "testName": "Field Mapping System Test",
+  "inputData": {
+    "name": "John Doe",
+    "phone": "+923001234567",
+    "city": "Lahore",
+    "division": "Kasur",
+    "role": "Farmer",
+    "farmsize": "5-10 acres",
+    "country": "Pakistan",
+    "receiverNetwork": "Jazz",
+    "_id": "user123",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  "sourcePlatform": "aabpashi",
+  "results": [
+    {
+      "mapper": "farmovation",
+      "status": "PASSED",
+      "data": {
+        "userData": {
+          "email": "923001234567@aabpashi.com",
+          "phoneNumber": "+923001234567",
+          "firstName": "John",
+          "lastName": "Doe",
+          "country": "Pakistan",
+          "city": "Lahore",
+          "address": "Lahore, Kasur",
+          "userType": "farmer",
+          "preferredLanguage": "en",
+          "sourcePlatform": "aabpashi",
+          "originalUserId": "user123",
+          "metadata": {
+            "division": "Kasur",
+            "farmsize": "5-10 acres",
+            "receiverNetwork": "Jazz",
+            "createdAt": "2024-01-01T00:00:00.000Z"
+          }
+        },
+        "force": false
+      }
+    },
+    {
+      "mapper": "farmovation_marketplace",
+      "status": "PASSED",
+      "data": {
+        "seller": {
+          "sellerId": "user123",
+          "profile": {
+            "firstName": "John",
+            "lastName": "Doe",
+            "fullName": "John Doe",
+            "email": "923001234567@aabpashi.com",
+            "phone": "+923001234567",
+            "businessName": "John Doe Farm",
+            "businessType": "farmer",
+            "category": "agriculture"
+          },
+          "location": {
+            "city": "Lahore",
+            "state": "Kasur",
+            "country": "Pakistan",
+            "address": "Lahore, Kasur, Pakistan"
+          },
+          "businessDetails": {
+            "farmSize": "5-10 acres",
+            "specializations": [
+              "Farmer"
+            ],
+            "mobileOperator": "Jazz",
+            "registrationDate": "2024-01-01T00:00:00.000Z"
+          },
+          "marketplace": {
+            "status": "active",
+            "verificationStatus": "pending",
+            "rating": 0,
+            "totalSales": 0
+          },
+          "integration": {
+            "sourcePlatform": "aabpashi",
+            "externalUserId": "user123",
+            "importedAt": "2025-07-10T09:28:44.241Z",
+            "syncVersion": "1.0"
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "errors": 0,
+    "allPassed": true
+  }
+}

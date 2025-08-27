@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import countries from "@/data/pakistanCities";
 import { useManualLoader } from "@/context/ManualLoaderContext"; // ✅ make sure path is correct
 import { useLocale } from "next-intl";
+import { register } from "module";
 
 export function useAuthForms() {
   const [isLoadingBoth, setIsLoadingBoth] = useState(false);
@@ -77,11 +78,8 @@ export function useAuthForms() {
           setDivision(decoded.division || null);
 
           if (decoded.fullName) {
-            const parts = decoded.fullName.trim().split(/\s+/); 
-            const indexMap = [0, 0, 1, 2]; 
-            const index = indexMap[Math.min(parts.length, 4) - 1] || 0;
-            const nameToUse = parts[index] || parts[0]; 
-            setFullname(nameToUse);
+            const firstName = decoded.fullName.split(" ")[0];
+            setFullname(firstName);
           }
         } catch (error) {
           console.error("Failed to decode meta_token", error);
@@ -299,6 +297,7 @@ export function useAuthForms() {
 
       console.log("Register Result:", registerResult);
 
+
       setOtpSent(true);
       setTempdata({
         name: registerResult.name || "",
@@ -368,7 +367,7 @@ export function useAuthForms() {
     handleCountryChange,
     handleCityChange,
     selectedCountry,
-    registererrorState,
-    setRegisterError,
+    registererrorState, 
+    setRegisterError
   };
 }

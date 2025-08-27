@@ -7,15 +7,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { polygon } = body;
 
-    console.log(polygon)
-
     if (!polygon) {
       return NextResponse.json(
         { error: "Polygon is required in the request body." },
         { status: 400 }
       );
     }
-
 
     // 🔁 Forward request to Dockerized GEE API
     const response = await fetch(GEEApiUrl, {
@@ -25,8 +22,6 @@ export async function POST(req: NextRequest) {
     });
 
     const data = await response.json();
-
-    console.log("Response from GEE API:", data);
 
     if (!response.ok) {
       return NextResponse.json({ error: data.error || "Error from GEE API" }, { status: 500 });

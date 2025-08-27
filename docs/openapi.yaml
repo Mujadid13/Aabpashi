@@ -1,0 +1,2143 @@
+openapi: 3.0.3
+info:
+  title: AaabPashi Web API
+  description: |
+    AaabPashi is a comprehensive water management and agricultural monitoring platform API.
+
+    The API provides authentication via phone number and OTP, field management, geospatial 
+    data processing, water release scheduling, and multilingual support.
+
+    ## Authentication
+
+    This API supports two authentication methods:
+
+    ### 1. JWT-based Authentication (Primary)
+    JWT-based authentication with phone number and OTP verification. 
+    Authentication tokens are stored in HTTP-only cookies for security.
+
+    ### 2. API Key Authentication (Alternative)
+    API key authentication for programmatic access, third-party integrations, 
+    and administrative operations. API keys can be provided in headers:
+    - `Authorization: Bearer <api-key>`
+    - `X-API-Key: <api-key>`
+
+    ### Authentication Priority
+    1. API key authentication is checked first
+    2. If API key fails, JWT authentication is attempted
+    3. If both fail, request is rejected with 401 Unauthorized
+
+    ## Rate Limiting
+
+    OTP endpoints are rate-limited to one request per phone number every 5 minutes.
+
+    ## External Services
+
+    The API integrates with:
+    - Veevo SMS API for OTP delivery
+    - Google Translate API for multilingual support
+    - Open-Meteo API for weather data
+    - Google Earth Engine API for satellite imagery
+    - Custom Python APIs for geospatial processing
+
+    ## Multi-Platform Sync
+
+    The API supports cross-platform user synchronization with:
+    - Farmovation User Server (comprehensive user management)
+    - Farmovation Marketplace Platform (e-commerce seller profiles)
+    - Automatic field mapping for platform-specific API formats
+    - Uniform endpoint structure across all platforms for easier implementation
+  version: 1.0.0
+  contact:
+    name: AaabPashi API Support
+    email: support@aabpashi.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://aabpashi.com
+    description: Production server
+  - url: http://localhost:3000
+    description: Development server
+
+tags:
+  - name: Authentication
+    description: User authentication and authorization endpoints
+  - name: API Key Management
+    description: API key management endpoints (admin only)
+  - name: Field Management
+    description: Endpoints for managing agricultural fields
+  - name: Geospatial
+    description: Geospatial data and water management endpoints
+  - name: Translation
+    description: Text translation services
+  - name: Contact
+    description: Contact form management
+  - name: User Sync
+    description: Cross-platform user synchronization endpoints (API key protected)
+
+security:
+  - cookieAuth: []
+  - apiKeyAuth: []
+
+paths:
+  /{locale}/api/auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: Register new user
+      description: Register a new user and send OTP for verification
+      parameters:
+        - name: locale
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [en, ur]
+          description: Language locale
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupRequest"
+      responses:
+        "200":
+          description: OTP sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignupResponse"
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: OTP already sent, please wait
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /{locale}/api/auth/verifyotp-register:
+    post:
+      tags:
+        - Authentication
+      summary: Verify OTP for registration
+      description: Verify OTP and complete user registration
+      parameters:
+        - name: locale
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [en, ur]
+          description: Language locale
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyOTPRegisterRequest"
+      responses:
+        "200":
+          description: User registered successfully
+          headers:
+            Set-Cookie:
+              description: Authentication cookies
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "400":
+          description: Invalid OTP or missing fields
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /{locale}/api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Send login OTP
+      description: Send OTP to existing user for login
+      parameters:
+        - name: locale
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [en, ur]
+          description: Language locale
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "201":
+          description: OTP sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Invalid phone number format
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Phone number not registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: OTP already sent, please wait
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /{locale}/api/auth/verifyotp-login:
+    post:
+      tags:
+        - Authentication
+      summary: Verify login OTP
+      description: Verify OTP and complete user login
+      parameters:
+        - name: locale
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [en, ur]
+          description: Language locale
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyOTPLoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          headers:
+            Set-Cookie:
+              description: Authentication cookies
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "400":
+          description: Invalid OTP or phone number
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /{locale}/api/auth/sendotp:
+    post:
+      tags:
+        - Authentication
+      summary: Send OTP
+      description: Send OTP to a phone number (general purpose)
+      parameters:
+        - name: locale
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [en, ur]
+          description: Language locale
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendOTPRequest"
+      responses:
+        "200":
+          description: OTP sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "429":
+          description: OTP already sent, please wait
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /{locale}/api/auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: Logout user
+      description: Logout user and clear authentication tokens
+      parameters:
+        - name: locale
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [en, ur]
+          description: Language locale
+      responses:
+        "200":
+          description: Logout successful
+          headers:
+            Set-Cookie:
+              description: Clear authentication cookies
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logout successful
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/savefield:
+    post:
+      tags:
+        - Field Management
+      summary: Save field
+      description: Save a new field for the authenticated user
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaveFieldRequest"
+      responses:
+        "201":
+          description: Field saved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SaveFieldResponse"
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/getfield:
+    post:
+      tags:
+        - Field Management
+      summary: Get user fields
+      description: Retrieve all fields for a specific user
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetFieldRequest"
+      responses:
+        "200":
+          description: Fields retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetFieldResponse"
+        "400":
+          description: Missing user ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/updatefield:
+    post:
+      tags:
+        - Field Management
+      summary: Update field polygon
+      description: Update field polygon geometry
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateFieldRequest"
+      responses:
+        "200":
+          description: Field updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Polygon updated successfully.
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Field not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/deletefield:
+    post:
+      tags:
+        - Field Management
+      summary: Delete field
+      description: Delete a field
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteFieldRequest"
+      responses:
+        "200":
+          description: Field deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Field deleted successfully.
+        "400":
+          description: Missing field ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Field not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: No matching field found.
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/checkpolygon:
+    post:
+      tags:
+        - Field Management
+      summary: Get field polygon
+      description: Get polygon and field name for a specific field
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CheckPolygonRequest"
+      responses:
+        "200":
+          description: Polygon retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckPolygonResponse"
+        "400":
+          description: Missing field ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Field not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/getcanals:
+    post:
+      tags:
+        - Geospatial
+      summary: Get canals
+      description: Get canal information for a specific division
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetCanalsRequest"
+      responses:
+        "200":
+          description: Canals retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Canal"
+        "400":
+          description: Division parameter required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/getwrs:
+    post:
+      tags:
+        - Geospatial
+      summary: Get water release schedule
+      description: Get water release schedule data for a canal
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetWRSRequest"
+      responses:
+        "200":
+          description: Water release schedule retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WaterReleaseSchedule"
+        "400":
+          description: Canal or division missing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/getncd:
+    post:
+      tags:
+        - Geospatial
+      summary: Get nearest canal data
+      description: Get nearest canal data based on location and division
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetNCDRequest"
+      responses:
+        "200":
+          description: Nearest canal data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NearestCanalData"
+        "400":
+          description: Position or division required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: No files found for division
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/getGEE:
+    post:
+      tags:
+        - Geospatial
+      summary: Get Google Earth Engine data
+      description: Get Google Earth Engine satellite data for a polygon
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetGEERequest"
+      responses:
+        "200":
+          description: GEE data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GEEData"
+        "400":
+          description: Polygon required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Failed to contact GEE API
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/getweather:
+    post:
+      tags:
+        - Geospatial
+      summary: Get weather forecast
+      description: Get weather forecast for a location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetWeatherRequest"
+      responses:
+        "200":
+          description: Weather data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeatherData"
+        "400":
+          description: Invalid position format
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Failed to fetch weather
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/translatecanal:
+    post:
+      tags:
+        - Translation
+      summary: Translate canal names
+      description: Translate canal names or text to Urdu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TranslateRequest"
+      responses:
+        "200":
+          description: Translation successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TranslateResponse"
+        "500":
+          description: Translation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/translatecanal1:
+    post:
+      tags:
+        - Translation
+      summary: Translate up to 3 canal names
+      description: Translate up to 3 canal names to Urdu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TranslateRequest"
+      responses:
+        "200":
+          description: Translation successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TranslateResponse"
+        "500":
+          description: Translation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/savecontact:
+    post:
+      tags:
+        - Contact
+      summary: Save contact form
+      description: Save contact form submission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaveContactRequest"
+      responses:
+        "200":
+          description: Contact saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Contact saved successfully
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Please enter a valid name.
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Failed to process contact form
+
+  # API Key Management Endpoints
+  /api/admin/api-keys:
+    get:
+      tags:
+        - API Key Management
+      summary: List all API keys
+      description: Retrieve all API keys (admin only)
+      security:
+        - apiKeyAuth: []
+      responses:
+        "200":
+          description: List of API keys retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ApiKeyInfo"
+                  count:
+                    type: integer
+                    example: 2
+        "401":
+          description: Unauthorized - Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - API Key Management
+      summary: Create new API key
+      description: Create a new API key (admin only)
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateApiKeyRequest"
+      responses:
+        "201":
+          description: API key created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateApiKeyResponse"
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized - Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/admin/api-keys/{id}:
+    get:
+      tags:
+        - API Key Management
+      summary: Get API key details
+      description: Get specific API key details (admin only)
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: API key ID
+      responses:
+        "200":
+          description: API key details retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: "#/components/schemas/ApiKeyInfo"
+        "401":
+          description: Unauthorized - Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: API key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      tags:
+        - API Key Management
+      summary: Update API key
+      description: Update API key properties (admin only)
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: API key ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateApiKeyRequest"
+      responses:
+        "200":
+          description: API key updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: API key updated successfully
+                  data:
+                    $ref: "#/components/schemas/ApiKeyInfo"
+        "400":
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized - Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: API key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - API Key Management
+      summary: Delete API key
+      description: Delete an API key (admin only)
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: API key ID
+      responses:
+        "200":
+          description: API key deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: API key deleted successfully
+        "401":
+          description: Unauthorized - Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: API key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/admin/api-keys/{id}/revoke:
+    post:
+      tags:
+        - API Key Management
+      summary: Revoke API key
+      description: Revoke (deactivate) an API key (admin only)
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: API key ID
+      responses:
+        "200":
+          description: API key revoked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: API key revoked successfully
+        "401":
+          description: Unauthorized - Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: API key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/admin/api-keys/{id}/regenerate:
+    post:
+      tags:
+        - API Key Management
+      summary: Regenerate API key
+      description: Regenerate an API key (creates new key, keeps metadata) (admin only)
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: API key ID
+      responses:
+        "200":
+          description: API key regenerated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateApiKeyResponse"
+        "401":
+          description: Unauthorized - Invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: API key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/sync/create-user:
+    post:
+      tags:
+        - User Sync
+      summary: Sync user create (internal)
+      description: Create or upsert a user in the local database (API key protected, internal use only)
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SyncUser"
+      responses:
+        "200":
+          description: User synced (created/updated)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SyncSuccessResponse"
+        "400":
+          description: Missing user data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Sync failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/sync/update-user:
+    post:
+      tags:
+        - User Sync
+      summary: Sync user update (internal)
+      description: Update a user in the local database (API key protected, internal use only)
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SyncUser"
+      responses:
+        "200":
+          description: User synced (updated)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SyncSuccessResponse"
+        "400":
+          description: Missing user data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Sync failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/sync/delete-user:
+    post:
+      tags:
+        - User Sync
+      summary: Sync user delete (internal)
+      description: Delete a user from the local database (API key protected, internal use only)
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SyncUserDelete"
+      responses:
+        "200":
+          description: User synced (deleted)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SyncSuccessResponse"
+        "400":
+          description: Missing user identifier
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Sync failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+      description: JWT token stored in HTTP-only cookie
+
+  schemas:
+    # Authentication Schemas
+    SignupRequest:
+      type: object
+      required:
+        - name
+        - city
+        - phone
+        - receiverNetwork
+        - division
+        - farmsize
+        - role
+        - country
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+          description: Full name (minimum 2 words)
+        city:
+          type: string
+          example: "Lahore"
+          description: City name
+        phone:
+          type: string
+          example: "+923001234567"
+          description: Phone number with or without +92 prefix
+        receiverNetwork:
+          type: string
+          example: "Jazz"
+          enum: [Jazz, Telenor, Ufone, Zong, SCO]
+          description: Mobile network operator
+        division:
+          type: string
+          example: "Kasur"
+          description: Administrative division
+        farmsize:
+          type: string
+          example: "5-10 acres"
+          enum:
+            ["<1 acre", "1-5 acres", "5-10 acres", "10-25 acres", ">25 acres"]
+          description: Farm size category
+        role:
+          type: string
+          example: "Farmer"
+          enum: [Farmer, Agricultural Officer, Researcher, Other]
+          description: User role
+        country:
+          type: string
+          example: "Pakistan"
+          description: Country name
+
+    SignupResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "OTP sent successfully"
+        name:
+          type: string
+          example: "John Doe"
+        city:
+          type: string
+          example: "Lahore"
+        phone:
+          type: string
+          example: "+923001234567"
+        receiverNetwork:
+          type: string
+          example: "Jazz"
+        division:
+          type: string
+          example: "Kasur"
+        farmsize:
+          type: string
+          example: "5-10 acres"
+        role:
+          type: string
+          example: "Farmer"
+        country:
+          type: string
+          example: "Pakistan"
+
+    VerifyOTPRegisterRequest:
+      type: object
+      required:
+        - phoneNumber
+        - otp
+        - name
+        - city
+        - division
+        - receiverNetwork
+        - farmsize
+        - role
+        - country
+      properties:
+        phoneNumber:
+          type: string
+          example: "+923001234567"
+        otp:
+          type: string
+          example: "1234"
+        name:
+          type: string
+          example: "John Doe"
+        city:
+          type: string
+          example: "Lahore"
+        division:
+          type: string
+          example: "Kasur"
+        receiverNetwork:
+          type: string
+          example: "Jazz"
+        farmsize:
+          type: string
+          example: "5-10 acres"
+        role:
+          type: string
+          example: "Farmer"
+        country:
+          type: string
+          example: "Pakistan"
+
+    LoginRequest:
+      type: object
+      required:
+        - phoneNumber
+      properties:
+        phoneNumber:
+          type: string
+          example: "+923001234567"
+          description: Registered phone number
+
+    LoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "OTP sent successfully"
+        phoneNumber:
+          type: string
+          example: "+923001234567"
+        id:
+          type: string
+          example: "64a1b2c3d4e5f6789012345"
+        division:
+          type: string
+          example: "Kasur"
+        name:
+          type: string
+          example: "John Doe"
+
+    VerifyOTPLoginRequest:
+      type: object
+      required:
+        - phoneNumber
+        - otp
+      properties:
+        phoneNumber:
+          type: string
+          example: "+923001234567"
+        otp:
+          type: string
+          example: "1234"
+
+    SendOTPRequest:
+      type: object
+      required:
+        - phoneNumber
+        - receiverNetwork
+      properties:
+        phoneNumber:
+          type: string
+          example: "+923001234567"
+        receiverNetwork:
+          type: string
+          example: "Jazz"
+
+    # Field Management Schemas
+    SaveFieldRequest:
+      type: object
+      required:
+        - fieldName
+        - cropTypes
+        - soilType
+        - location
+        - userId
+      properties:
+        fieldName:
+          type: string
+          example: "North Field"
+        cropTypes:
+          type: array
+          items:
+            type: string
+          example: ["Wheat", "Cotton"]
+        soilType:
+          type: string
+          example: "Clay"
+          enum: [Clay, Loam, Sand, Silt, Rocky]
+        location:
+          $ref: "#/components/schemas/Location"
+        userId:
+          type: string
+          example: "64a1b2c3d4e5f6789012345"
+
+    SaveFieldResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Field data saved successfully"
+        data:
+          $ref: "#/components/schemas/Field"
+
+    GetFieldRequest:
+      type: object
+      required:
+        - userId
+      properties:
+        userId:
+          type: string
+          example: "64a1b2c3d4e5f6789012345"
+
+    GetFieldResponse:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/Field"
+
+    UpdateFieldRequest:
+      type: object
+      required:
+        - fieldId
+        - polygon
+      properties:
+        fieldId:
+          type: string
+          example: "64a1b2c3d4e5f6789012346"
+        polygon:
+          $ref: "#/components/schemas/GeoJSONPolygon"
+
+    DeleteFieldRequest:
+      type: object
+      required:
+        - _id
+      properties:
+        _id:
+          type: string
+          example: "64a1b2c3d4e5f6789012346"
+
+    CheckPolygonRequest:
+      type: object
+      required:
+        - fieldId
+      properties:
+        fieldId:
+          type: string
+          example: "64a1b2c3d4e5f6789012346"
+
+    CheckPolygonResponse:
+      type: object
+      properties:
+        polygon:
+          $ref: "#/components/schemas/GeoJSONPolygon"
+        fieldName:
+          type: string
+          example: "North Field"
+
+    # Geospatial Schemas
+    GetCanalsRequest:
+      type: object
+      required:
+        - division
+      properties:
+        division:
+          type: string
+          example: "Kasur"
+
+    Canal:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Main Canal"
+        type:
+          type: string
+          example: "Primary"
+        status:
+          type: string
+          example: "Active"
+
+    GetWRSRequest:
+      type: object
+      required:
+        - canal
+        - division
+      properties:
+        canal:
+          type: string
+          example: "Main Canal"
+        division:
+          type: string
+          example: "Kasur"
+
+    WaterReleaseSchedule:
+      type: object
+      properties:
+        schedule:
+          type: string
+          example: "Water release schedule data"
+        priority:
+          type: string
+          example: "High"
+        rotation:
+          type: string
+          example: "Weekly"
+
+    GetNCDRequest:
+      type: object
+      required:
+        - position
+        - division
+      properties:
+        position:
+          $ref: "#/components/schemas/Coordinates"
+        division:
+          type: string
+          example: "Kasur"
+
+    NearestCanalData:
+      type: object
+      properties:
+        nearest_canal:
+          type: string
+          example: "Main Canal"
+        distance:
+          type: string
+          example: "2.5 km"
+        water_availability:
+          type: string
+          example: "Available"
+
+    GetGEERequest:
+      type: object
+      required:
+        - polygon
+      properties:
+        polygon:
+          $ref: "#/components/schemas/GeoJSONPolygon"
+
+    GEEData:
+      type: object
+      properties:
+        ndvi:
+          type: number
+          format: float
+          example: 0.75
+        precipitation:
+          type: number
+          format: float
+          example: 25.5
+        temperature:
+          type: number
+          format: float
+          example: 28.3
+        soil_moisture:
+          type: number
+          format: float
+          example: 0.65
+
+    GetWeatherRequest:
+      type: object
+      required:
+        - position
+      properties:
+        position:
+          $ref: "#/components/schemas/WeatherPosition"
+
+    WeatherData:
+      type: object
+      properties:
+        daily:
+          type: object
+          properties:
+            time:
+              type: array
+              items:
+                type: string
+                format: date
+              example: ["2024-01-01", "2024-01-02"]
+            temperature_2m_max:
+              type: array
+              items:
+                type: number
+                format: float
+              example: [25.5, 26.1]
+            temperature_2m_min:
+              type: array
+              items:
+                type: number
+                format: float
+              example: [15.2, 16.0]
+            precipitation_sum:
+              type: array
+              items:
+                type: number
+                format: float
+              example: [0, 2.5]
+            relative_humidity_2m_max:
+              type: array
+              items:
+                type: number
+                format: float
+              example: [85, 80]
+            relative_humidity_2m_min:
+              type: array
+              items:
+                type: number
+                format: float
+              example: [45, 50]
+
+    # Translation Schemas
+    TranslateRequest:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          example: ["Main Canal", "Secondary Canal"]
+        target:
+          type: string
+          example: "ur"
+          default: "ur"
+
+    TranslateResponse:
+      type: object
+      properties:
+        translation:
+          type: array
+          items:
+            type: string
+          example: ["مین کینال", "ثانوی کینال"]
+
+    # Contact Schema
+    SaveContactRequest:
+      type: object
+      required:
+        - name
+        - phone
+        - userMessage
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        phone:
+          type: string
+          example: "3001234567"
+        email:
+          type: string
+          format: email
+          example: "john@example.com"
+        userMessage:
+          type: string
+          example: "I need help with water management"
+
+    # Common Schemas
+    Location:
+      type: object
+      required:
+        - lat
+        - lng
+      properties:
+        lat:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+          example: 31.5204
+        lng:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+          example: 74.3587
+
+    Coordinates:
+      type: object
+      required:
+        - lon
+        - lat
+      properties:
+        lon:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+          example: 74.3587
+        lat:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+          example: 31.5204
+
+    WeatherPosition:
+      type: object
+      required:
+        - lat
+        - lon
+      properties:
+        lat:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+          example: 31.5204
+        lon:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+          example: 74.3587
+
+    GeoJSONPolygon:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum: [Polygon]
+          example: "Polygon"
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+                format: float
+              minItems: 2
+              maxItems: 2
+          example:
+            [
+              [
+                [74.3587, 31.5204],
+                [74.3590, 31.5204],
+                [74.3590, 31.5207],
+                [74.3587, 31.5207],
+                [74.3587, 31.5204],
+              ],
+            ]
+
+    Field:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "64a1b2c3d4e5f6789012346"
+        fieldName:
+          type: string
+          example: "North Field"
+        cropTypes:
+          type: array
+          items:
+            type: string
+          example: ["Wheat", "Cotton"]
+        soilType:
+          type: string
+          example: "Clay"
+        location:
+          $ref: "#/components/schemas/Location"
+        polygon:
+          $ref: "#/components/schemas/GeoJSONPolygon"
+        userId:
+          type: string
+          example: "64a1b2c3d4e5f6789012345"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00.000Z"
+
+    # API Key Schemas
+    CreateApiKeyRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "My App"
+          description: Human-readable name for the API key
+        userId:
+          type: string
+          example: "user123"
+          description: Associated user ID (optional)
+        permissions:
+          type: array
+          items:
+            type: string
+            enum: [read, write, admin, delete]
+          example: ["read", "write"]
+          description: Array of permissions for the API key
+        expiresInDays:
+          type: integer
+          minimum: 1
+          example: 30
+          description: Expiration in days (optional)
+
+    UpdateApiKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Updated App Name"
+          description: Human-readable name for the API key
+        permissions:
+          type: array
+          items:
+            type: string
+            enum: [read, write, admin, delete]
+          example: ["read", "write", "admin"]
+          description: Array of permissions for the API key
+        isActive:
+          type: boolean
+          example: true
+          description: Whether the API key is active
+        expiresInDays:
+          type: integer
+          minimum: 1
+          example: 60
+          description: Expiration in days (0 to remove expiration)
+
+    ApiKeyInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "abc123def456"
+          description: Unique API key identifier
+        name:
+          type: string
+          example: "My App"
+          description: Human-readable name
+        userId:
+          type: string
+          example: "user123"
+          description: Associated user ID (if any)
+        permissions:
+          type: array
+          items:
+            type: string
+          example: ["read", "write"]
+          description: Array of permissions
+        isActive:
+          type: boolean
+          example: true
+          description: Whether the key is active
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T00:00:00.000Z"
+          description: Creation timestamp
+        lastUsed:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00.000Z"
+          description: Last usage timestamp
+        expiresAt:
+          type: string
+          format: date-time
+          example: "2024-02-01T00:00:00.000Z"
+          description: Expiration timestamp (if any)
+
+    CreateApiKeyResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "API key created successfully"
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "abc123def456"
+            name:
+              type: string
+              example: "My App"
+            key:
+              type: string
+              example: "aabpashi_1234567890abcdef..."
+              description: The actual API key (only shown on creation)
+            userId:
+              type: string
+              example: "user123"
+            permissions:
+              type: array
+              items:
+                type: string
+              example: ["read", "write"]
+            isActive:
+              type: boolean
+              example: true
+            createdAt:
+              type: string
+              format: date-time
+              example: "2024-01-01T00:00:00.000Z"
+            expiresAt:
+              type: string
+              format: date-time
+              example: "2024-02-01T00:00:00.000Z"
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Operation completed successfully"
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: "Error description"
+        error:
+          type: string
+          example: "Detailed error information"
+
+    SyncUser:
+      type: object
+      required:
+        - name
+        - phone
+        - city
+        - division
+        - role
+      properties:
+        name:
+          type: string
+          example: John Doe
+        phone:
+          type: string
+          example: "+923001234567"
+        city:
+          type: string
+          example: Lahore
+        division:
+          type: string
+          example: Kasur
+        role:
+          type: string
+          example: Farmer
+        # ... other user fields ...
+
+    SyncSuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: User synced (created/updated)
+
+    SyncUserDelete:
+      type: object
+      properties:
+        phone:
+          type: string
+          example: "+923001234567"
+        _id:
+          type: string
+          example: "64a1b2c3d4e5f6789012345"

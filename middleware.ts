@@ -8,12 +8,15 @@ const intlMiddleware = createIntlMiddleware(routing);
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 const secretKeyUint8 = new TextEncoder().encode(SECRET_KEY);
 
-const publicApiRoutes = ["/api/auth"];
+const publicApiRoutes = ["/api/auth", "/api/openapi", "/api/docs", "/api/sync", "/api/health"];
+
+// NOTE: API key authentication is NOT possible in middleware because file system access is not allowed in the Edge Runtime.
+// API key authentication must be handled in API routes using `export const runtime = 'nodejs';`.
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // ✅ 1. Token validation for protected API routes
+  // ✅ 1. JWT validation for protected API routes
   if (
     pathname.startsWith("/api") &&
     !publicApiRoutes.some((route) => pathname.startsWith(route))
@@ -22,7 +25,7 @@ export async function middleware(req: NextRequest) {
       const token = req.cookies.get("token")?.value;
       if (!token) {
         return NextResponse.json(
-          { error: "Unauthorized - No token" },
+          { error: "Unauthorized - No valid authentication provided" },
           { status: 401 }
         );
       }
@@ -39,7 +42,12 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // ✅ 2. Handle "/" root redirect with preferred locale from cookies
+  // ✅ 2. Skip internationalization for API routes
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+
+  // ✅ 3. Handle "/" root redirect with preferred locale from cookies
   if (pathname === "/") {
     const cookieLocale = req.cookies.get("NEXT_LOCALE")?.value;
     const detectedLocale = cookieLocale || routing.defaultLocale || "ur";
@@ -49,7 +57,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // ✅ 3. Run i18n detection
+  // ✅ 4. Run i18n detection for non-API routes
   return intlMiddleware(req);
 }
 

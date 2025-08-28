@@ -60,6 +60,7 @@
   },
   "header": {
     "nav": {
+      "home": "Home",
       "scaleup": "Scale-Up Plan",
       "technology": "Technology",
       "projects": "Projects",
@@ -344,14 +345,9 @@
         "description": "Builds and maintains both front-end and back-end systems powering the AabPashi platform."
       },
       {
-        "name": "Abdullah Riaz",
-        "title": "Farmer Engagement & Technology Liaison",
-        "description": "Bridges the gap between field realities and tech solutions by connecting with farmers and translating their needs into features."
-      },
-      {
-        "name": "Zoya Arshad",
-        "title": "Communication & Culture Lead",
-        "description": "Shapes internal and external communications while fostering a collaborative, mission-driven culture."
+        "name": "Mohsin Sabir",
+        "title": "Mobile Solutions Engineer",
+        "description": "Develops and optimizes mobile applications that connect farmers to AabPashi’s smart irrigation services."
       },
       {
         "name": "Raahim Arbaz",
@@ -364,9 +360,14 @@
         "description": "Ensures secure, reliable systems by managing cybersecurity, data protection, and governance policies."
       },
       {
-        "name": "Mohsin Sabir",
-        "title": "Mobile Solutions Engineer",
-        "description": "Develops and optimizes mobile applications that connect farmers to AabPashi’s smart irrigation services."
+        "name": "Abdullah Riaz",
+        "title": "Farmer Engagement & Technology Liaison",
+        "description": "Bridges the gap between field realities and tech solutions by connecting with farmers and translating their needs into features."
+      },
+      {
+        "name": "Zoya Arshad",
+        "title": "Communication & Culture Lead",
+        "description": "Shapes internal and external communications while fostering a collaborative, mission-driven culture."
       }
     ]
   },

@@ -30,6 +30,11 @@ const nextConfig = {
         hostname: "openweathermap.org",
         pathname: "/img/wn/**",
       },
+      {
+        protocol: "https",
+        hostname: "media.licdn.com",
+        pathname: "/dms/image/**",
+      }
     ],
   },
   reactStrictMode: false,

@@ -61,7 +61,7 @@
   "header": {
     "nav": {
       "home": "Home",
-      "scaleup": "Scale Up",
+      "scaleup": "Scale-Up Plan",
       "technology": "Technology",
       "projects": "Projects",
       "impact": "Why & Our Impact",
@@ -71,7 +71,7 @@
     }
   },
   "userProfile": {
-   "view": "View Profile",
+    "view": "View Profile",
     "update": "Update Profile",
     "logout": "Logout",
     "discover": "Discover Your Farm"
@@ -509,7 +509,6 @@
     "selectFieldWarning": "Select a field first",
     "back": "Back",
     "placeholderMessage": "Click Water Release Schedule Button to check the Water Availability to your Farms !!"
-    
   },
   "waterStressPopup": {
     "watertitle": "Select Your Field",
@@ -709,7 +708,41 @@
     "close": "Close"
   },
   "scaleup": {
-
+    "hero": {
+      "title": "Aabpashi",
+      "highlight": "Scale-up Plan for Efficient Irrigation",
+      "description": "AabPashi combines satellite based water stress analytics, weather intelligence, GPS canal detection , and irrigation schedules to provide timely access to weekly canal rotational plan to enhance crop yields, and drive climate resilience—starting in Pakistan, scaling beyond."
+    },
+    "snapshot": {
+      "features": [
+        {
+          "title": "Water Stress Maps",
+          "desc": "Satellite-based alerts flag risky fields before it’s too late."
+        },
+        {
+          "title": "Weather Alerts",
+          "desc": "Localized forecasts + smart advisories reduce weather damage."
+        },
+        {
+          "title": "GPS Canal Tracking",
+          "desc": "Location Based Canal Detection and Irrigation Schedules"
+        },
+        {
+          "title": "Irrigation Schedules",
+          "desc": "Weekly Canal schedules from Punjab Irrigation's Rotational Plan"
+        }
+      ]
+    },
+    "pilot": {
+      "title": "Pilot Operating Divisions",
+      "description": "Field pilots validate usability, reliability, and efficiency across varied canal types, regions, and farming practices.",
+      "divisions": ["Kasur", "Hakra", "Pandoki", "Rahim Yar Khan"],
+      "early_signals_title": "Early Signals",
+      "early_signals_desc": "Water wastage down, reporting time faster, field coverage rising."
+    },
+    "expansion": {
+      "title": "Expansion Landscape",
+      "description": "AabPashi's scale-up plan— nationally and regionally—through public-private coalitions and institutional partnerships."
+    }
   }
-
 }

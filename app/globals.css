@@ -30,15 +30,16 @@ button {
   }
 
   .header-container {
-    @apply relative flex items-center justify-between w-full max-w-[1920px] px-4 sm:px-6 md:px-8 lg:px-6 xl:px-16 2xl:px-24 mx-auto;
+    @apply relative flex items-center justify-between w-full max-w-[1920px] px-4 sm:px-6 md:px-8 lg:px-6 xl:px-16 1.5xl:px-20 2xl:px-24 mx-auto;
   }
 
   .logo-img {
     @apply h-10 sm:h-12 md:h-14 w-auto object-contain;
   }
 
+  /* ✅ Desktop nav visible ONLY after 1440px */
   .nav-links {
-    @apply hidden xl:flex gap-6 2xl:gap-10 justify-center items-center w-full;
+    @apply hidden 1.5xl:flex gap-6 2xl:gap-10 justify-center items-center w-full;
   }
 
   .nav-link {
@@ -46,11 +47,12 @@ button {
   }
 
   .desktop-profile {
-    @apply hidden xl:block;
+    @apply hidden 1.5xl:block;
   }
 
+  /* ✅ Hamburger visible up to 1440px */
   .menu-button {
-    @apply xl:hidden text-white text-3xl cursor-pointer transition;
+    @apply 1.5xl:hidden text-white text-3xl cursor-pointer transition;
   }
 
   .mobile-menu {
@@ -77,6 +79,7 @@ button {
     @apply mt-auto p-4;
   }
 }
+
 
 /* UserProfile Styles */
 @layer components {
@@ -274,13 +277,6 @@ button {
   .hero-button {
     @apply bg-blue-500 text-white text-base sm:text-lg font-bold rounded-xl px-6 sm:px-8 py-3 sm:py-4 shadow-lg transition-all hover:bg-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400;
     min-width: 180px;
-  }
-  .hero-language-toggle {
-    @apply fixed bottom-5 left-5 z-40;
-  }
-
-  .hero-audio-toggle {
-    @apply fixed bottom-16 left-5 z-20;
   }
 }
 

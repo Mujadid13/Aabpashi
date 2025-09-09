@@ -23,19 +23,6 @@ export function useHeaderState() {
     setMobileMenuOpen(false);
   };
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://embed.tawk.to/682ddad54b9538190bc4aaf8/1irphtktk";
-    script.async = true;
-    script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
-    document.body.appendChild(script);
-    console.log("Tawk.to script loaded");
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return {
     mobileMenuOpen,
     setMobileMenuOpen,

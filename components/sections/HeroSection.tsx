@@ -29,13 +29,6 @@ const HeroSection: React.FC<HeroSectionProps> = (props) => {
 
   return (
     <section className="hero-section" ref={sectionRef}>
-      <div className="hero-language-toggle">
-        <LanguageToggle />
-      </div>
-
-      <div className="hero-audio-toggle">
-        <AudioCueToggle />
-      </div>
 
       <div className="hero-overlay"></div>
 

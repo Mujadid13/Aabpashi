@@ -10,6 +10,7 @@ import ChartsPopup from "@/components/ChartsPopup";
 import AccuracyPopup from "@/components/AccuracyPopup";
 import LocationErrorPopup from "@/components/LocationErrorPopup";
 import useFetchUserLocation from "@/hooks/useFetchUserLocation";
+import AudioCueToggle from "@/components/AudioCueToggle";
 
 interface MAPPageProps {
   showFieldsPopup: boolean;
@@ -40,7 +41,6 @@ interface MAPPageProps {
   drawPolygonMode: boolean;
   setAutDrawPolygonMode: (value: boolean) => void;
   AutdrawPolygonMode: boolean;
-  
 }
 
 const MAPPage: React.FC<MAPPageProps> = ({
@@ -76,7 +76,6 @@ const MAPPage: React.FC<MAPPageProps> = ({
 
   const state = useMAPPAGE();
 
-
   const { fetchUserLocation } = useFetchUserLocation({
     setPosition: setPosition,
     setAccuracy: setAccuracy,
@@ -86,7 +85,6 @@ const MAPPage: React.FC<MAPPageProps> = ({
     setPermissionDenied: state.setPermissionDenied,
     setLoading: state.setLoading,
   });
-
 
   useEffect(() => {
     if (selectedFeature === "Find My Location") {
@@ -163,7 +161,7 @@ const MAPPage: React.FC<MAPPageProps> = ({
         loadingForm={state.loadingForm}
         confirmDelete={confirmDelete}
         setConfirmDelete={setConfirmDelete}
-        zoom = {state.zoom}
+        zoom={state.zoom}
         position={position}
       />
 
@@ -186,7 +184,7 @@ const MAPPage: React.FC<MAPPageProps> = ({
         setLoadingGeoJSON={state.setLoadingGeoJSON}
         setGeoJsonData={state.setGeoJsonData}
         setGeoJsonError={state.setGeoJsonError}
-        zoom = {state.zoom}
+        zoom={state.zoom}
         division1={division1}
         setTileLayerUrl={state.setTileLayerUrl}
         setLoading={state.setLoading}
@@ -198,6 +196,10 @@ const MAPPage: React.FC<MAPPageProps> = ({
         showFieldsPopup={showFieldsPopup}
         loadingForm={state.loadingForm}
       />
+
+      <div className="absolute bottom-16 right-4 flex flex-col gap-2 z-[1000]">
+        <AudioCueToggle />
+      </div>
 
       {/* Location Error Popup */}
       <LocationErrorPopup

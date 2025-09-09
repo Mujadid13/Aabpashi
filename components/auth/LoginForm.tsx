@@ -1,7 +1,6 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import receiverNetworks from "@/data/receiverNetworks";
 
 interface LoginFormProps {
   loginData: { phone: string; receiverNetwork: string };

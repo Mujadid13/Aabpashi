@@ -23,6 +23,8 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json();
 
+    console.log("Response from GEE API:", data);
+
     if (!response.ok) {
       return NextResponse.json({ error: data.error || "Error from GEE API" }, { status: 500 });
     }

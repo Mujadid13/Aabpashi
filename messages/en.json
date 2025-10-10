@@ -596,7 +596,9 @@
   "languageToggle": {
     "label": "🌐 Select Language",
     "english": "English",
-    "urdu": "Urdu"
+    "urdu": "Urdu",
+    "punjabi": "Punjabi",
+    "sindhi": "Sindhi"
   },
   "map": {
     "loadingFeatureData": "⏳ Loading Feature Data...",

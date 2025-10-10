@@ -596,7 +596,9 @@
   "languageToggle": {
     "label": "🌐 زبان منتخب کریں",
     "english": "انگریزی",
-    "urdu": "اردو"
+    "urdu": "اردو",
+    "punjabi": "پنجابی",
+    "sindhi": "سنڌي"
   },
   "map": {
     "loadingFeatureData": "⏳ فیچر ڈیٹا لوڈ ہو رہا ہے...",

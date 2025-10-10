@@ -278,6 +278,10 @@ button {
     @apply bg-blue-500 text-white text-base sm:text-lg font-bold rounded-xl px-6 sm:px-8 py-3 sm:py-4 shadow-lg transition-all hover:bg-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400;
     min-width: 180px;
   }
+
+   .hero-language-toggle {
+    @apply fixed bottom-5 left-5 z-40;
+  }
 }
 
 .video-section {
@@ -485,6 +489,8 @@ button {
       height: 50dvh; /* Ensure both take half the screen */
     }
   }
+
+  
 
   /* Sidebar Styles */
   .sidebar-container {

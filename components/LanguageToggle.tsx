@@ -58,6 +58,28 @@ const LanguageToggle: React.FC = () => {
                 {t("urdu")}
               </button>
             </li>
+            <li>
+              <button
+                className={clsx(
+                  "language-option",
+                  currentLocale === "pa" && "language-option-active"
+                )}
+                onClick={() => handleLanguageChange("pa")}
+              >
+                {t("punjabi")}
+              </button>
+            </li>
+            <li>
+              <button
+                className={clsx(
+                  "language-option",
+                  currentLocale === "sd" && "language-option-active"
+                )}
+                onClick={() => handleLanguageChange("sd")}
+              >
+                {t("sindhi")}
+              </button>
+            </li>
           </ul>
         </div>
       )}

@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const t = useTranslations("header.nav");
   const pathname = usePathname();
   const localePrefix = pathname.split("/")[1] || "en";
-  const isUrdu = localePrefix === "ur";
+  const isRTL = ["ur", "pa", "sd"].includes(localePrefix);
 
   const {
     mobileMenuOpen,
@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           </motion.div>
 
           {/* Nav Links */}
-          <div className={`nav-links ${isUrdu ? "rtl-nav-links" : ""}`}>
+          <div className={`nav-links ${isRTL ? "rtl-nav-links" : ""}`}>
             {navItems.map((item, index) => (
               <motion.div
                 key={item.key}
@@ -115,9 +115,9 @@ const Header: React.FC<HeaderProps> = (props) => {
           {mobileMenuOpen && (
             <motion.div
               className="mobile-menu"
-              initial={{ x: isUrdu ? 250 : -250 }}
+              initial={{ x: isRTL ? 250 : -250 }}
               animate={{ x: 0 }}
-              exit={{ x: isUrdu ? 250 : -250 }}
+              exit={{ x: isRTL ? 250 : -250 }}
               transition={{ duration: 0.3 }}
             >
               <div className="mobile-logo">

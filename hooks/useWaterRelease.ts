@@ -29,6 +29,14 @@ const useWaterRelease = (
       Kharif: "خریف",
       Rabi: "ربیع",
     },
+    pa: {
+      Kharif: "خریف",
+      Rabi: "ربیع",
+    },
+    sd: {
+      Kharif: "خريف",
+      Rabi: "رابي",
+    },
   };
 
   const season = getCurrentSeason();

@@ -13,7 +13,7 @@ export default function ScreenSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInViewOnce(sectionRef, 0.2);
   const benefits: string[] = t.raw("benefits");
-  const isRTL = locale === "ur" || locale === "ar";
+  const isRTL = ["ur", "pa", "sd"].includes(locale);
 
   return (
     <div

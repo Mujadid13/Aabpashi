@@ -15,7 +15,7 @@ export default function WaterAcademy() {
   t("about.heading");
 
   const locale = useLocale();
-  const isRTL = locale === "ur";
+  const isRTL = ["ur", "pa", "sd"].includes(locale);
 
   const {
     showPopup,

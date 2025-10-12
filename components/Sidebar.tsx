@@ -84,6 +84,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     setDrawPolygonMode,
     setAutDrawPolygonMode,
   });
+  
 
   return (
     <div>

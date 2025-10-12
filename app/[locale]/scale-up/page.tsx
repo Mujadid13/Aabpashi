@@ -9,7 +9,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 export default function Scaleup() {
   const locale = useLocale();
-  const isRTL = locale === "ur";
+  const isRTL = ["ur", "pa", "sd"].includes(locale);
   const t = useTranslations("scaleup");
 
   const {

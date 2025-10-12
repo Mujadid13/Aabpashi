@@ -21,7 +21,7 @@ export default function Contact() {
   } = useAuthHandlers();
 
   const locale = useLocale();
-  const isRTL = locale === "ur";
+  const isRTL = ["ur", "pa", "sd"].includes(locale);
 
   const [showSuccessPopup, setShowSuccessPopup] = React.useState(false);
 

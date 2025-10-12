@@ -68,28 +68,34 @@ export function useUserProfile(
   useEffect(() => {
     if (!fullname) return;
 
-    const cache = JSON.parse(localStorage.getItem("nameTranslations") || "{}");
+    const cacheKey = `nameTranslations_${locale}`;
+    const cache = JSON.parse(localStorage.getItem(cacheKey) || "{}");
 
-    // ✅ If not Urdu or translation already cached — use that and return
-    if (locale !== "ur" || cache[fullname]) {
+    // Use cached translation if available or skip for non-allowed locales
+    const allowedLocales = ["ur", "pa", "sd"];
+    const shouldTranslate = allowedLocales.includes(locale);
+
+    if (!shouldTranslate || cache[fullname]) {
       setTranslatedName(cache[fullname] || fullname);
       return;
     }
 
-    // ✅ Otherwise, call the translation API
     const translateName = async () => {
       try {
         const res = await fetch("/api/translatename", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: [fullname], target: "ur" }),
+          body: JSON.stringify({
+            text: [fullname],
+            target: locale === "pa" ? "ur" : locale, // pa → ur fallback
+          }),
         });
 
         const data = await res.json();
         const translated = data.translation?.[0] || fullname;
 
         cache[fullname] = translated;
-        localStorage.setItem("nameTranslations", JSON.stringify(cache));
+        localStorage.setItem(cacheKey, JSON.stringify(cache));
         setTranslatedName(translated);
       } catch {
         setTranslatedName(fullname);

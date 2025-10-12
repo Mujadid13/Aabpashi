@@ -11,7 +11,7 @@ import icons from "@/data/icons";
 export default function Projects() {
   const t = useTranslations("projects");
   const locale = useLocale();
-  const isRTL = locale === "ur";
+  const isRTL = ["ur", "pa", "sd"].includes(locale);
 
   const {
     showPopup,

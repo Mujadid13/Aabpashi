@@ -55,7 +55,7 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
         const allowedLocales = ["ur", "pa", "sd"];
         const shouldTranslate = allowedLocales.includes(locale);
 
-        // If not Urdu/Punjabi/Sindhi, just return English names
+        // 🌍 If not Urdu/Punjabi/Sindhi, just return English names
         if (!shouldTranslate) {
           setTranslatedCanals(
             props.canalList.map((name) => ({
@@ -70,24 +70,18 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
 
         const cacheKey = `canalTranslations_${locale}`;
         const cached = localStorage.getItem(cacheKey);
-        const cachedMap: Record<string, string> = cached
-          ? JSON.parse(cached)
-          : {};
+        const cachedMap: Record<string, string> = cached ? JSON.parse(cached) : {};
 
-        const untranslatedCanals = props.canalList.filter(
-          (name) => !cachedMap[name]
-        );
+        const untranslatedCanals = props.canalList.filter((name) => !cachedMap[name]);
 
         if (untranslatedCanals.length > 0) {
-          const res = await fetch("/api/translatecanal", {
+          const res = await fetch("/api/translatecanal1", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: untranslatedCanals, target: locale }),
           });
 
-          if (!res.ok) {
-            throw new Error(`Translation API failed: ${res.status}`);
-          }
+          if (!res.ok) throw new Error(`Translation API failed: ${res.status}`);
 
           const data = await res.json();
 
@@ -102,7 +96,7 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
           localStorage.setItem(cacheKey, JSON.stringify(cachedMap));
         }
 
-        // Build full object with all languages
+        // Build full object with all language variations
         const final: Canal[] = props.canalList.map((name_en) => ({
           name_en,
           name_ur: locale === "ur" ? cachedMap[name_en] || name_en : name_en,
@@ -136,9 +130,13 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
 
   if (!props.showCanalSearchPopup) return null;
 
+  // 🧭 RTL for Urdu, Punjabi, and Sindhi
+  const isRTL = ["ur", "pa", "sd"].includes(locale);
+
   return (
-    <div className="canal-search-overlay">
+    <div className="canal-search-overlay" dir={isRTL ? "rtl" : "ltr"}>
       <div className="canal-search-container">
+        {/* Close Button */}
         <button
           className="close-button"
           onClick={() => {
@@ -153,6 +151,7 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
           ✕
         </button>
 
+        {/* Back Button */}
         <button
           className="back-button"
           onClick={() => {
@@ -168,16 +167,19 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
           {t("back")}
         </button>
 
+        {/* Title */}
         <h2 className="popup-title">{t("title")}</h2>
 
+        {/* Search Input */}
         <input
           type="text"
           placeholder={t("searchPlaceholder")}
           value={props.canalSearchQuery}
           onChange={(e) => props.setCanalSearchQuery(e.target.value)}
-          className="search-input"
+          className={`search-input ${isRTL ? "text-right" : ""}`}
         />
 
+        {/* Loading / Error / List */}
         {props.isFetchingCanals ? (
           <p className="loading-message flex items-center justify-center">
             {t("loading")}
@@ -228,12 +230,19 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
                     localStorage.setItem("selectedCanal", canal.name_en);
                   }}
                 >
-                  {locale === "ur" ? canal.name_ur : canal.name_en}
+                  {locale === "ur"
+                    ? canal.name_ur
+                    : locale === "pa"
+                    ? canal.name_pa
+                    : locale === "sd"
+                    ? canal.name_sd
+                    : canal.name_en}
                 </button>
               ))}
           </div>
         )}
 
+        {/* Submit Button */}
         <button
           className={`submit-button ${
             props.selectedCanalSearch

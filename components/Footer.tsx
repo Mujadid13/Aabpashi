@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
   const { ref, hasAnimated, showLoader, router } = useFooterAnimation();
   const t = useTranslations("footer");
   const locale = useLocale();
-  const isRTL = locale === "ur"; // or any RTL language code
+  const isRTL = ["ur", "pa", "sd"].includes(locale); // or any RTL language code
 
   return (
     <footer ref={ref} className={`footer ${isRTL ? "rtl" : "ltr"}`} dir={isRTL ? "rtl" : "ltr"}>

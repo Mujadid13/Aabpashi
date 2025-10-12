@@ -19,7 +19,7 @@ export default function AboutUs() {
   const leaders = team.raw("leadership");
   const members = team.raw("members");
   const locale = useLocale();
-  const isRTL = locale === "ur";
+  const isRTL = ["ur", "pa", "sd"].includes(locale);
 
   const {
     showPopup,

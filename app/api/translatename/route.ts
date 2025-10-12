@@ -1,18 +1,20 @@
-// app/api/translatecanal/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { text, target = "ur" } = body;
-    const apiKey = process.env.GOOGLE_CLOUD_API_KEY;
+    const { text, target } = body;
 
+    const apiKey = process.env.GOOGLE_CLOUD_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ error: "Missing API key" }, { status: 500 });
     }
 
-    const isArray = Array.isArray(text);
+    // ✅ Only allow Pakistani languages: Urdu, Punjabi (Shahmukhi), Sindhi
+    const allowedTargets = ["ur", "pa", "sd"];
+    const safeTarget = allowedTargets.includes(target) ? target : "ur";
 
+    const isArray = Array.isArray(text);
     const chunks = isArray
       ? Array.from({ length: Math.ceil(text.length / 64) }, (_, i) =>
           text.slice(i * 64, i * 64 + 64)
@@ -29,7 +31,7 @@ export async function POST(req: NextRequest) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             q: chunk,
-            target,
+            target: safeTarget,
             format: "text",
           }),
         }

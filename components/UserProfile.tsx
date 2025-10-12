@@ -31,7 +31,7 @@ const UserProfile: React.FC<UserProfileProps> = (props) => {
     metaData,
   } = useUserProfile(props.showPopup, props.setShowPopupAction);
 
-  const displayName = locale === "ur" ? translatedName : fullname;
+  const displayName = ["ur", "pa", "sd"].includes(locale) ? translatedName : fullname;
 
   const desktopButton = (
     <motion.button

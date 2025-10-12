@@ -7,6 +7,8 @@ import { useTranslations, useLocale } from "next-intl";
 interface Canal {
   name_en: string;
   name_ur: string;
+  name_pa: string;
+  name_sd: string;
 }
 
 interface CanalSearchPopupProps {
@@ -42,7 +44,7 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
     props.setSelectedSearchOption,
     props.setSelectedFeature,
     props.setCanalSearchQuery,
-    props.division1,
+    props.division1
   );
 
   useEffect(() => {
@@ -50,17 +52,24 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
 
     const translateCanals = async () => {
       try {
-        if (locale !== "ur") {
+        const allowedLocales = ["ur", "pa", "sd"];
+        const shouldTranslate = allowedLocales.includes(locale);
+
+        // If not Urdu/Punjabi/Sindhi, just return English names
+        if (!shouldTranslate) {
           setTranslatedCanals(
             props.canalList.map((name) => ({
               name_en: name,
               name_ur: name,
+              name_pa: name,
+              name_sd: name,
             }))
           );
           return;
         }
 
-        const cached = localStorage.getItem("canalTranslations");
+        const cacheKey = `canalTranslations_${locale}`;
+        const cached = localStorage.getItem(cacheKey);
         const cachedMap: Record<string, string> = cached
           ? JSON.parse(cached)
           : {};
@@ -73,7 +82,7 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
           const res = await fetch("/api/translatecanal", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: untranslatedCanals, target: "ur" }),
+            body: JSON.stringify({ text: untranslatedCanals, target: locale }),
           });
 
           if (!res.ok) {
@@ -90,20 +99,26 @@ const CanalSearchPopup: React.FC<CanalSearchPopupProps> = (props) => {
             cachedMap[name] = data.translation[idx] || name;
           });
 
-          localStorage.setItem("canalTranslations", JSON.stringify(cachedMap));
+          localStorage.setItem(cacheKey, JSON.stringify(cachedMap));
         }
 
-        const final = props.canalList.map((name_en) => ({
+        // Build full object with all languages
+        const final: Canal[] = props.canalList.map((name_en) => ({
           name_en,
-          name_ur: cachedMap[name_en] || name_en,
+          name_ur: locale === "ur" ? cachedMap[name_en] || name_en : name_en,
+          name_pa: locale === "pa" ? cachedMap[name_en] || name_en : name_en,
+          name_sd: locale === "sd" ? cachedMap[name_en] || name_en : name_en,
         }));
 
         setTranslatedCanals(final);
       } catch (error) {
+        console.error("❌ Failed to translate canal names:", error);
         setTranslatedCanals(
           props.canalList.map((name) => ({
             name_en: name,
             name_ur: name,
+            name_pa: name,
+            name_sd: name,
           }))
         );
       }

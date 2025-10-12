@@ -79,7 +79,7 @@ export function useUserProfile(
     // ✅ Otherwise, call the translation API
     const translateName = async () => {
       try {
-        const res = await fetch("/api/translatecanal", {
+        const res = await fetch("/api/translatename", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: [fullname], target: "ur" }),

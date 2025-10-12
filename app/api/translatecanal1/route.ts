@@ -1,18 +1,21 @@
-// app/api/translate3canals/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { text, target = "ur" } = body;
+    const { text, target } = body;
     const apiKey = process.env.GOOGLE_CLOUD_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json({ error: "Missing API key" }, { status: 500 });
     }
 
+    // ✅ Only allow Pakistani languages
+    const allowedTargets = ["ur", "pa", "sd"];
+    const safeTarget = allowedTargets.includes(target) ? target : "ur";
+
     const isArray = Array.isArray(text);
-    const q = isArray ? text.slice(0, 3) : [text];
+    const q = isArray ? text.slice(0, 3) : [text]; // limit to 3 items max
 
     const response = await fetch(
       `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
@@ -21,7 +24,7 @@ export async function POST(req: NextRequest) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           q,
-          target,
+          target: safeTarget,
           format: "text",
         }),
       }

@@ -172,10 +172,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               {feature.disabled &&
               feature.disabled(selectedField) &&
               selectedField === null
-                ? `${feature.label[locale as "en" | "ur"]} - ⚠ ${tSidebar(
+                ? `${feature.label[locale as "en" | "ur" | "pa" | "sd"]} - ⚠ ${tSidebar(
                     "selectFieldWarning"
                   )}`
-                : feature.label[locale as "en" | "ur"]}
+                : feature.label[locale as "en" | "ur" | "pa" | "sd"]}
             </button>
           ))}
         </div>

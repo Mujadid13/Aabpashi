@@ -37,7 +37,7 @@ const AccuracyPopup: React.FC<AccuracyPopupProps> = ({
         : t("bad")
       : "";
 
-  if (!shouldShow) return null;
+  if (!shouldShow) return null
 
   return (
     <div className={`accuracy-popup ${accuracyClass}`}>

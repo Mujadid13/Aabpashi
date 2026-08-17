@@ -1,0 +1,42 @@
+# Deploy target for the two standalone backend services (watervation-api,
+# gee-api) that the main app calls over HTTP. These are separate images
+# (mujadid12/watervation-api, mujadid12/gee-api) built from their own repos,
+# not this one — this compose file only runs them.
+#
+# Traffic reaches these over the existing leadsforge Caddy instance
+# (watervation.softsincpk.com, gee.softsincpk.com) rather than direct ports,
+# so both services join its network (leadsforge_default) and no longer
+# publish ports to the host.
+#
+# Usage on the droplet:
+#   1. Copy the new Earth Engine service-account JSON to ./service-account.json,
+#      next to this file (scp it over directly — never commit it, never bake
+#      it into an image).
+#   2. docker compose -f docker-compose.services.yml pull
+#   3. docker compose -f docker-compose.services.yml up -d
+#   4. Add the watervation/gee site blocks to the leadsforge Caddyfile and
+#      reload Caddy (see chat for the exact blocks + reload command).
+
+services:
+  watervation-api:
+    image: mujadid12/watervation-api:latest
+    container_name: watervation-api
+    restart: unless-stopped
+    networks:
+      - leadsforge_default
+
+  gee-api:
+    image: mujadid12/gee-api:latest
+    container_name: gee-api
+    restart: unless-stopped
+    networks:
+      - leadsforge_default
+    volumes:
+      # Overrides the stale credentials baked into the image at build time.
+      # The app reads this fixed path directly; it does not read
+      # GOOGLE_APPLICATION_CREDENTIALS from the environment.
+      - ./service-account.json:/app/credentials/service-account.json:ro
+
+networks:
+  leadsforge_default:
+    external: true

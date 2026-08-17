@@ -12,7 +12,7 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 COPY tsconfig.json ./
-COPY next.config.js ./
+COPY next.config.mjs ./
 COPY tailwind.config.ts ./
 COPY postcss.config.js ./
 
@@ -64,8 +64,8 @@ RUN npm install --omit=dev && npm cache clean --force
 # Copy built application from builder stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/middleware.ts ./
+COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/proxy.ts ./
 COPY --from=builder /app/data ./data
 
 # Create non-root user

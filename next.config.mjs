@@ -1,18 +1,17 @@
-const withPWA = require("next-pwa")({
+import withSerwistInit from "@serwist/next";
+import createNextIntlPlugin from "next-intl/plugin";
 
-  dest: "public",
+const withSerwist = withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
   disable: process.env.NODE_ENV === "development",
 });
 
-const createNextIntlPlugin = require('next-intl/plugin');
- 
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  agentRules: false,
   images: {
     remotePatterns: [
       {
@@ -34,12 +33,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "media.licdn.com",
         pathname: "/dms/image/**",
-      }
+      },
     ],
   },
   reactStrictMode: false,
 };
 
-module.exports = withPWA(nextConfig);
-
-module.exports = withNextIntl(nextConfig);
+export default withNextIntl(withSerwist(nextConfig));

@@ -6,7 +6,7 @@ export const runtime = 'nodejs';
 // POST /api/admin/api-keys/[id]/regenerate - Regenerate API key
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check admin permission
@@ -15,7 +15,7 @@ export async function POST(
       return authCheck;
     }
 
-    const { id } = params;
+    const { id } = await params;
     const regeneratedApiKey = await apiKeyService.regenerateApiKey(id);
 
     return NextResponse.json({

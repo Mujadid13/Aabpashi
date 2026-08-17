@@ -4,10 +4,11 @@ import { join } from "path";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { file: string[] } }
+  { params }: { params: Promise<{ file: string[] }> }
 ) {
   try {
-    const filePath = params.file.join("/");
+    const { file } = await params;
+    const filePath = file.join("/");
     const fullPath = join(process.cwd(), "docs", filePath);
 
     // Security check: ensure we're only serving files from the docs directory

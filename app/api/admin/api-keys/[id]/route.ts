@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 // GET /api/admin/api-keys/[id] - Get specific API key
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check admin permission
@@ -16,7 +16,7 @@ export async function GET(
       return authCheck;
     }
 
-    const { id } = params;
+    const { id } = await params;
     const apiKey = await apiKeyService.getApiKeyById(id);
 
     if (!apiKey) {
@@ -61,7 +61,7 @@ export async function GET(
 // PUT /api/admin/api-keys/[id] - Update API key
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check admin permission
@@ -70,7 +70,7 @@ export async function PUT(
       return authCheck;
     }
 
-    const { id } = params;
+    const { id } = await params;
     const body: UpdateApiKeyRequest = await req.json();
 
     // Validate permissions if provided
@@ -121,7 +121,7 @@ export async function PUT(
 // DELETE /api/admin/api-keys/[id] - Delete API key
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check admin permission
@@ -130,7 +130,7 @@ export async function DELETE(
       return authCheck;
     }
 
-    const { id } = params;
+    const { id } = await params;
     await apiKeyService.deleteApiKey(id);
 
     return NextResponse.json({

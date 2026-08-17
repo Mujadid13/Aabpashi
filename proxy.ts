@@ -13,7 +13,7 @@ const publicApiRoutes = ["/api/auth", "/api/openapi", "/api/docs", "/api/sync", 
 // NOTE: API key authentication is NOT possible in middleware because file system access is not allowed in the Edge Runtime.
 // API key authentication must be handled in API routes using `export const runtime = 'nodejs';`.
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // ✅ 1. JWT validation for protected API routes

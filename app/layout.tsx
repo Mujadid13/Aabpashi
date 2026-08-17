@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter, Roboto_Mono } from "next/font/google";
-import dynamic from "next/dynamic";
+import LoaderManager from "@/components/LoaderManager";
 import { ManualLoaderProvider } from "@/context/ManualLoaderContext";
 import { AudioCueProvider } from "@/context/AudioCueContext";
 
@@ -8,10 +8,6 @@ const geistSans = Inter({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Roboto_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const LoaderManager = dynamic(() => import("@/components/LoaderManager"), {
-  ssr: false,
 });
 
 export const metadata = {

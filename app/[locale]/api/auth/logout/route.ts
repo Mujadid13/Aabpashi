@@ -4,7 +4,8 @@ import { cookies } from "next/headers";
 export async function POST(req: NextRequest) {
   try {
     // Remove JWT cookie (HTTP-only, Secure)
-    cookies().set("token", "", {
+    const cookieStore = await cookies();
+    cookieStore.set("token", "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -12,7 +13,7 @@ export async function POST(req: NextRequest) {
       maxAge: 0, // Immediately expire cookie
     });
 
-    cookies().set("meta_token", "", {
+    cookieStore.set("meta_token", "", {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",

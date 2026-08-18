@@ -115,7 +115,8 @@ export async function POST(req: NextRequest) {
     // 20 years in seconds
     const INFINITE_AGE = 20 * 365 * 24 * 60 * 60;
 
-    cookies().set("token", authToken, {
+    const cookieStore = await cookies();
+    cookieStore.set("token", authToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -123,7 +124,7 @@ export async function POST(req: NextRequest) {
       path: "/",
     });
 
-    cookies().set("meta_token", metaToken, {
+    cookieStore.set("meta_token", metaToken, {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -131,7 +132,7 @@ export async function POST(req: NextRequest) {
       path: "/",
     });
 
-     cookies().set("meta_token1", metaToken1, {
+     cookieStore.set("meta_token1", metaToken1, {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",

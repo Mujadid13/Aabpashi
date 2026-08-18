@@ -1,6 +1,11 @@
 import withSerwistInit from "@serwist/next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+// @serwist/next's Turbopack warning fires on every production build even when
+// `disable` is correctly configured, since it only checks truthiness of `disable`.
+// See https://github.com/serwist/serwist/issues/54
+process.env.SERWIST_SUPPRESS_TURBOPACK_WARNING = "1";
+
 const withSerwist = withSerwistInit({
   swSrc: "app/sw.ts",
   swDest: "public/sw.js",
